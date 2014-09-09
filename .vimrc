@@ -22,7 +22,7 @@ filetype indent on
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
- set hidden
+set hidden
 
 " Set longer history
 set history=1000
@@ -123,3 +123,5 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 set shortmess=atI
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+set title
