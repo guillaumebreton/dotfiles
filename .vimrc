@@ -11,6 +11,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/kien/ctrlp.vim'
+Bundle 'derekwyatt/vim-scala'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
