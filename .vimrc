@@ -37,7 +37,7 @@ set autoindent
 set title
 set autoread
 
-" Set defautl encoding
+" Set default encoding
 set encoding=utf8
 
 " Color schemes
@@ -55,7 +55,9 @@ set smartcase
 
 " Tab as wide as two spaces
 set tabstop=2
-
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 " Show line
 set ruler
 set cursorline
