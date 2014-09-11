@@ -1,6 +1,10 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+# locale settings
+export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -48,7 +52,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X1
 
 
 export MONGO_HOME=$HOME/Toolbox/mongo-2.4.10/bin
-export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:MONGO_HOME:$PATH
+export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$MONGO_HOME:$PATH
 eval "$(rbenv init -)"
 
 ### Add ~/bin/
