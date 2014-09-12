@@ -13,7 +13,7 @@ ZSH_THEME="yak"
 
 alias grep='grep --color=auto'
 alias lsa='ls -alh'
-
+alias fuck='sudo $(fc -ln -1)'
 
 # sublime
 export EDITOR='vi'
