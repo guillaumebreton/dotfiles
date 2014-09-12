@@ -12,6 +12,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/kien/ctrlp.vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'tpope/vim-commentary'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -113,6 +114,9 @@ if has("autocmd")
 
 	" add json syntax highlighting
 	au BufNewFile,BufRead *.json set ft=javascript
+
+  " add rabl as ruby files
+  au BufNewFile,BufRead *.rabl set ft=ruby
 endif
 
 " more natural split navigation
