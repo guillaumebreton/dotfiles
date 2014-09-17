@@ -6,3 +6,5 @@ ln -sF $DIR/.gitconfig $HOME/.gitconfig
 ln -sF $DIR/.slate $HOME/.slate
 ln -sF $DIR/.wgetrc $HOME/.wgetrc
 ln -sF $DIR/yak.zsh-theme $HOME/.oh-my-zsh/themes/yak.zsh-theme
+ln -sF $DIR/.mongorc.js $HOME/.mongorc.js
+ln -sF $DIR/.mjolnir $HOME/.mjolnir
