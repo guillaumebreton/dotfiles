@@ -66,5 +66,8 @@ alias pg_stop='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 #mongo db
 alias mongo_start='mongod run --quiet --dbpath ~/Toolbox/mongo > /dev/null 2>&1'
 
+#go path
+export GOPATH=$HOME/.go
+
 #load extra
 source ~/.extras
