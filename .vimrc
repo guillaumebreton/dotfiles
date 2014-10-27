@@ -81,6 +81,10 @@ set noar
 set visualbell
 set noerrorbells
 
+" Folding
+set foldmethod=syntax
+set nofoldenable
+
 " Delete all whitespace in end of line
 autocmd BufWritePre * :%s/\s\+$//e
 

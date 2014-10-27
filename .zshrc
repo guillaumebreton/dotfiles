@@ -51,7 +51,7 @@ bindkey "^[e" end-of-line
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
 
-export MONGO_HOME=$HOME/Toolbox/mongo-2.4.10/bin
+export MONGO_HOME=$HOME/Toolbox/mongo-2.6.4/bin
 export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$MONGO_HOME:$PATH
 eval "$(rbenv init -)"
 
