@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/kien/ctrlp.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-surround'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
