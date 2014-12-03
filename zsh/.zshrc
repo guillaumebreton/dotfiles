@@ -21,6 +21,8 @@ export EDITOR='vi'
 # bundle exex
 alias be='bundle exec'
 
+# taskwarrior
+alias t='task ls'
 
 #shell
 alias reload='exec $SHELL'
