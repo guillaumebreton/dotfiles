@@ -5,3 +5,4 @@ stow mongodb
 stow tmux
 stow mjolnir
 stow wget
+stow task
