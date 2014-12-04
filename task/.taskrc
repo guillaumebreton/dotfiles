@@ -27,3 +27,5 @@ data.location=~/.task
 
 report.ls.sort=project+,due+,priority-
 report.list.sort=project+,due+,priority-,start-
+report.ls.filter=status:pending and +OVERDUE or due:
+default.command=ls
