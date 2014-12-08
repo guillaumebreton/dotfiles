@@ -62,8 +62,8 @@ export PATH="$HOME/bin:$PATH"
 
 
 #post gres
-alias pg_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias pg_stop='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log stop'
+alias pg_start='pg_ctl -D /usr/local/pgsql/data -l logfile start'
+alias pg_stop='pg_ctl -D /usr/local/pgsql/data -l logfile stop'
 
 #mongo db
 alias mongo_start='mongod run --quiet --dbpath ~/Toolbox/mongo > /dev/null 2>&1'
