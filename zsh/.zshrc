@@ -23,7 +23,7 @@ alias be='bundle exec'
 
 # taskwarrior
 alias t='task ls'
-
+alias tad='task add '
 #shell
 alias reload='exec $SHELL'
 
