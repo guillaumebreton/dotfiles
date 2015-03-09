@@ -26,11 +26,11 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-gray-256.theme
 
 
-report.ls.sort=priority-,project+,due+
+report.ls.sort=urgency-,project+,due+
 report.ls.filter=status:pending and +OVERDUE or schedule:today
 report.ls.description=Display today task
 
-report.list.sort=priority-,project+,due+,start-
+report.list.sort=urgency-,project+,due+,start-
 report.week.columns=id,project,priority,scheduled,description
 report.week.labels=ID,Proj,Pri,Sched,Description
 report.week.sort=scheduled+,due+

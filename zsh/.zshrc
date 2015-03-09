@@ -25,7 +25,7 @@ alias be='bundle exec'
 alias t='task ls'
 alias tn='task next'
 alias tw='task week'
-alias tad='task add '
+alias tad='task add sched:today '
 #shell
 alias reload='exec $SHELL'
 
