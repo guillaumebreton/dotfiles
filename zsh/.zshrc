@@ -23,6 +23,8 @@ alias be='bundle exec'
 
 # taskwarrior
 alias t='task ls'
+alias tn='task next'
+alias tw='task week'
 alias tad='task add '
 #shell
 alias reload='exec $SHELL'

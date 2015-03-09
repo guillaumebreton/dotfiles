@@ -25,7 +25,24 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-yellow-green.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-gray-256.theme
 
-report.ls.sort=project+,due+,priority-
-report.list.sort=project+,due+,priority-,start-
-report.ls.filter=status:pending and +OVERDUE or due:
+
+report.ls.sort=priority-,project+,due+
+report.ls.filter=status:pending and +OVERDUE or schedule:today
+report.ls.description=Display today task
+
+report.list.sort=priority-,project+,due+,start-
+report.week.columns=id,project,priority,scheduled,description
+report.week.labels=ID,Proj,Pri,Sched,Description
+report.week.sort=scheduled+,due+
+report.week.filter=status=pending and schedule>=socw and schedule<=eocw
+report.week.description=Display all event in the current week
+
 default.command=ls
+
+
+# Color definition
+color=on
+color.scheduled=white
+color.pri.H=yellow
+color.active=green
+rule.precedence.color=due.today,active,blocking,blocked,overdue,due,pri,scheduled,keyword.,project.,tag.,uda.,recurring,tagged,completed,deleted
