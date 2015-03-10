@@ -26,8 +26,10 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-gray-256.theme
 
 
+report.ls.columns=id,project,priority,description
+report.ls.labels=ID,Proj,Pri,Description
 report.ls.sort=urgency-,project+,due+
-report.ls.filter=status:pending and +OVERDUE or schedule:today
+report.ls.filter=status:pending and +OVERDUE or status:pending and scheduled:today
 report.ls.description=Display today task
 
 report.list.sort=urgency-,project+,due+,start-
@@ -44,9 +46,11 @@ default.command=ls
 color=on
 color.scheduled=white
 color.pri.H=yellow
-color.active=black on green
+color.active=green
 color.due.today=bold white
 color.due=bold red
 color.blocked=cyan
 color.blocking=cyan
+color.completed=white
+color.deleted=white
 rule.precedence.color=due.today,active,blocking,blocked,overdue,due,pri,scheduled,keyword.,project.,tag.,uda.,recurring,tagged,completed,deleted
