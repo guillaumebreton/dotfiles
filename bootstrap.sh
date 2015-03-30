@@ -6,3 +6,4 @@ stow -t ~ -R tmux
 stow -t ~ -R mjolnir
 stow -t ~ -R wget
 stow -t ~ -R task
+stow -t ~ -R ack
