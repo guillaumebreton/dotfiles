@@ -29,7 +29,7 @@ data.location=~/.task
 report.ls.columns=id,project,priority,description
 report.ls.labels=ID,Proj,Pri,Description
 report.ls.sort=urgency-,project+,due+
-report.ls.filter=status:pending and +OVERDUE or status:pending and scheduled:today
+report.ls.filter=status:pending and (+OVERDUE or scheduled<=today or due:today)
 report.ls.description=Display today task
 
 report.list.sort=urgency-,project+,due+,start-
