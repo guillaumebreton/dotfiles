@@ -23,6 +23,9 @@ alias be='bundle exec'
 
 # taskwarrior
 alias t='task ls'
+alias tw='task week'
+alias tn='task next'
+alias tl='task list'
 alias tad='task add '
 #shell
 alias reload='exec $SHELL'
@@ -73,3 +76,14 @@ export GOPATH=$HOME/.go
 
 #load extra
 source ~/.extras
+
+
+#prompt
+PROMPT='%{$fg[green]%}%p%{$fg[blue]%}%c%{$fg[green]%} ⌁ %{$fg[blue]%}$(git_prompt_info)%{$fg[blue]%}% %{$reset_color%}'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}●%{$reset_color%}"
+
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ●"
+

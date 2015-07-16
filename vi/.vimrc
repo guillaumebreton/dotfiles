@@ -10,8 +10,13 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin 'https://github.com/kien/ctrlp.vim'
-Bundle 'derekwyatt/vim-scala'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'xolox/vim-colorscheme-switcher'
+Plugin 'xolox/vim-misc'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
 Bundle 'groenewege/vim-less'
@@ -44,11 +49,13 @@ set autoread
 set encoding=utf8
 
 " Color schemes
-colorscheme railscasts
+colorscheme monokai
+
 
 " display the status line always
 set laststatus=2
 set statusline+=%m
+
 
 " Searching
 set hlsearch
@@ -78,6 +85,7 @@ set clipboard=unnamedplus,unnamed,autoselect
 set nowb
 set noswapfile
 set noar
+
 
 " disable sound
 set visualbell
@@ -112,6 +120,9 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*/target/*,*.class,*/vendor/*
+
+" erlang, elixir, phoenix
+set wildignore+=*/deps/*,*/_build/*,*/node_modules/*
 
 if has("autocmd")
 	filetype on

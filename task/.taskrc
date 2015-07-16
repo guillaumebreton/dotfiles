@@ -20,12 +20,21 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-256.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-red-256.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-green-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-blue-256.theme
+include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-blue-256.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-violets-256.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-yellow-green.theme
 #include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-gray-256.theme
 
-report.ls.sort=project+,due+,priority-
-report.list.sort=project+,due+,priority-,start-
-report.ls.filter=status:pending and +OVERDUE or due:
+report.ls.sort=urgency-,project+,due+,priority-
+report.ls.filter=status:pending and +OVERDUE or sched:today
+report.list.sort=project+,scheduled+,priority-,start-
+report.list.columns=id,project,priority,description
+report.list.labels= ID,Proj,Pri,Description
+report.next.filter=status:pending and sched:
+report.next.columns=id,project,priority,scheduled,description
+report.next.labels= ID,Proj,Pri,Sched,Description
+report.week.columns=id,project,priority,scheduled,description
+report.week.filter=sched>= socw and sched<=eocw
+report.week.sort=scheduled+
 default.command=ls
+weekstart=monday
