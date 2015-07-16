@@ -1,8 +1,9 @@
-stow vi
-stow git
-stow zsh
-stow mongodb
-stow tmux
-stow mjolnir
-stow wget
-stow task
+stow -t ~ -R vi
+stow -t ~ -R git
+stow -t ~ -R zsh
+stow -t ~ -R mongodb
+stow -t ~ -R tmux
+stow -t ~ -R mjolnir
+stow -t ~ -R wget
+stow -t ~ -R task
+stow -t ~ -R ack
