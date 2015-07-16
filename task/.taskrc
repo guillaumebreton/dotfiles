@@ -14,19 +14,14 @@
 data.location=~/.task
 
 # Color theme (uncomment one to use)
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/light-16.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/light-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-16.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-red-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-green-256.theme
-include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-blue-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-violets-256.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-yellow-green.theme
-#include /usr/local/Cellar/task/2.3.0/share/doc/task/rc/dark-gray-256.theme
+include ~/task.theme
+
 
 report.ls.sort=urgency-,project+,due+,priority-
-report.ls.filter=status:pending and +OVERDUE or sched:today
+report.ls.filter=status:pending and due <= today or status:pending and sched <= today
+report.ls.columns=id,project,priority,tags,description
+report.ls.labels= ID,Proj,Pri,Tags,Description
+
 report.list.sort=project+,scheduled+,priority-,start-
 report.list.columns=id,project,priority,description
 report.list.labels= ID,Proj,Pri,Description
