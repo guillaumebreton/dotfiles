@@ -18,7 +18,7 @@ include ~/task.theme
 
 
 report.ls.sort=urgency-,project+,due+,priority-
-report.ls.filter=status:pending and due <= today or status:pending and sched <= today
+report.ls.filter=status:pending and due:today or status:pending and +OVERDUE or status:pending and sched <= today
 report.ls.columns=id,project,priority,tags,description
 report.ls.labels= ID,Proj,Pri,Tags,Description
 
