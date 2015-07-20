@@ -27,8 +27,12 @@ alias tw='task week'
 alias tn='task next'
 alias tl='task list'
 alias tad='task add '
+
 #shell
 alias reload='exec $SHELL'
+
+#alias
+alias rm='trash'
 
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ruby rails)
