@@ -1,4 +1,5 @@
 stow -t ~ -R vi
+stow -t ~ -R nvim
 stow -t ~ -R git
 stow -t ~ -R zsh
 stow -t ~ -R mongodb

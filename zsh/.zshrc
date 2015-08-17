@@ -83,7 +83,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X1
 
 
 export MONGO_HOME=$HOME/Toolbox/mongo-2.6.4/bin
-export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$MONGO_HOME:$PATH
+export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$MONGO_HOME:$HOME/go/bin:$PATH
 eval "$(rbenv init -)"
 
 ### Add ~/bin/
@@ -96,7 +96,7 @@ alias pg_stop='pg_ctl -D /usr/local/pgsql/data -l logfile stop'
 
 
 #go path
-export GOPATH=$HOME/.go
+export GOPATH=$HOME/go
 
 #load extra
 source ~/.extras

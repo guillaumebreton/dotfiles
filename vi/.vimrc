@@ -9,16 +9,12 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'https://github.com/kien/ctrlp.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'w0ng/vim-hybrid'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'https://github.com/kien/ctrlp.vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
-Bundle 'groenewege/vim-less'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,29 +82,7 @@ set noswapfile
 set noar
 
 
-" disable sound
-set visualbell
-set noerrorbells
 
-" Folding
-set foldmethod=syntax
-set nofoldenable
-
-" Delete all whitespace in end of line
-autocmd BufWritePre * :%s/\s\+$//e
-
-" enable relative number toggling
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-n> :call NumberToggle()<cr>
 
 " Control  plugin
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -123,17 +97,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*/target/*,*.class,*/vendor/*
 " erlang, elixir, phoenix
 set wildignore+=*/deps/*,*/_build/*,*/node_modules/*
 
-if has("autocmd")
-	filetype on
-	" md, markdown, and mk are markdown and define buffer-local preview
-	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
-
-	" add json syntax highlighting
-	au BufNewFile,BufRead *.json set ft=javascript
-
-  " add rabl as ruby files
-  au BufNewFile,BufRead *.rabl set ft=ruby
-endif
 
 " more natural split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -148,3 +111,4 @@ nnoremap <C-y> 3<C-y>
 set shortmess=atI
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
+
