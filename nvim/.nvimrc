@@ -90,6 +90,8 @@ set wildignore+=.git,.hg,.bzr,.svn
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.svg
 set wildignore+=build/*,tmp/*,vendor/cache/*,bin/*
 set wildignore+=.sass-cache/*
+set wildignore+=*/vendor/*
+set wildignore+=*/deps/*
 
 "Folding settings
 " set foldenable
@@ -101,3 +103,7 @@ set wildignore+=.sass-cache/*
 " set foldlevelstart=1
 "
 set clipboard=unnamedplus,unnamed
+
+
+" Hide highlight
+nnoremap <F3> :noh<CR>

@@ -83,11 +83,14 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X1
 
 
 export MONGO_HOME=$HOME/Toolbox/mongo-2.6.4/bin
-export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$MONGO_HOME:$HOME/go/bin:$PATH
 eval "$(rbenv init -)"
 
 ### Add ~/bin/
 export PATH="$HOME/bin:$PATH"
+
+export WORKSPACE="/Users/yak/Workspace/"
+
+
 
 
 #post gres
@@ -96,9 +99,12 @@ alias pg_stop='pg_ctl -D /usr/local/pgsql/data -l logfile stop'
 
 
 #go path
-export GOPATH=$HOME/go
+export GOPATH="$WORKSPACE/go"
 
-#load extra
+#go
+export KAFKA_HOME="/Users/yak/Toolbox/kafka_2.9.1-0.8.2.1"
+
+#load extra (github etc)
 source ~/.extras
 
 
@@ -111,3 +117,6 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}●%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ●"
 
+export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$GOPATH/bin:$KAFKA_HOME/bin:$PATH
+
+eval "$(docker-machine env default)"
