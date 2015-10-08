@@ -4,7 +4,8 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
-Plug 'https://github.com/kien/ctrlp.vim'
+" Plug 'https://github.com/kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'crusoexia/vim-monokai'
@@ -107,3 +108,5 @@ set clipboard=unnamedplus,unnamed
 
 " Hide highlight
 nnoremap <F3> :noh<CR>
+
+nnoremap <c-p> :FZF<cr>

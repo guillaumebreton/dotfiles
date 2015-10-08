@@ -28,6 +28,10 @@ alias tn='task next'
 alias tl='task list'
 alias tad='task add '
 
+# alias serial
+
+alias s="ls /dev/tty.usb*"
+
 #note taking
 dir="${dir:-$HOME/notes/}"
 n(){
@@ -119,4 +123,25 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ●"
 
 export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$GOPATH/bin:$KAFKA_HOME/bin:$PATH
 
-eval "$(docker-machine env default)"
+# eval "$(docker-machine env default)"
+
+#docker
+#
+alias dm="docker-machine"
+
+denv(){
+  eval $(docker-machine env $1)
+}
+dti(){
+  docker run -ti $1 sh
+}
+dri()  { docker rmi -f $(docker images -q --filter "dangling=true"); }
+
+# make file
+alias m="make"
+randpwd () {
+        local length=${1:-42}
+        cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $length | head -1
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
