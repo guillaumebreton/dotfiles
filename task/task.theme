@@ -32,12 +32,13 @@ color.calendar.weeknumber=rgb013
 
 color.recurring=blue
 color.overdue=red
-color.due.today=red
+color.completed=rgb111
+color.due.today=
 color.due=
 color.active=bold green
 color.tagged=
 color.tag.next=yellow
-color.blocked=yellow on black
+color.blocked=white
 color.blocking=yellow on black
 color.project.none=
 color.tag.none=
