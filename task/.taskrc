@@ -33,3 +33,5 @@ report.week.filter=sched>= socw and sched<=eocw
 report.week.sort=scheduled+
 default.command=ls
 weekstart=monday
+
+editor=vi
