@@ -14,7 +14,7 @@
 data.location=~/.task
 
 # Color theme (uncomment one to use)
-include ~/task.theme
+include ~/.task.theme
 
 
 report.ls.sort=status-,start-,project+,due+,project+,priority-
