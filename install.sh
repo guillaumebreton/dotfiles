@@ -37,6 +37,13 @@ if [ ! -d "$HOME/.zsh-autoenv" ]; then
 fi
 add_source $HOME/.zsh-autoenv/autoenv.zsh
 
+
+echo "+ Add fzf"
+if [ ! -d "$HOME/.fzf" ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+  $HOME/.fzf/install
+fi
+
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"
 
