@@ -1,4 +1,3 @@
-#! /bin/sh
 #
 alias t='task ls'
 alias tw='task week'
