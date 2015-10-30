@@ -4,12 +4,13 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
-" Plug 'https://github.com/kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
+Plug 'markcornick/vim-terraform'
+
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1

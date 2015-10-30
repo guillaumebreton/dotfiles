@@ -6,7 +6,9 @@ alias tl='task list'
 td(){
   task $1 done
 }
-
+ts(){
+  task $1 start
+}
 tad(){
-  task add $@ due:today sched:today
+  task add $@ sched:today
 }

@@ -2,6 +2,7 @@ alias dm="docker-machine"
 alias d="docker"
 
 drme() { docker rm $(docker ps -qa --filter 'status=exited'); }
+drm() { docker rm $(docker ps -qa); }
 
 denv() { eval $(docker-machine env $1);}
 

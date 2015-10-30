@@ -2,7 +2,9 @@
 
 pwd=$(pwd)
 
-rm "$HOME/.sources"
+if [ -d "$HOME/.sources" ]; then
+  rm "$HOME/.sources"
+fi
 add_source (){
   echo $1 >> ~/.sources
   chmod +x $1

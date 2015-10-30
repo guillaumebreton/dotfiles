@@ -6,8 +6,13 @@ set -g utf8
 set -gw utf8
 
 #set-window-option -g utf8 on
-set mouse on
+set-option -g -q mouse on
 set -g default-terminal "screen-256color"
+
+
+#mouse option
+bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
+bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
 ###########################
 #  Configuration
@@ -63,6 +68,9 @@ set-option -g default-command "reattach-to-user-namespace -l zsh"
 ###########################
 #  Key Bindings
 ###########################
+# move window
+bind -r < swap-window -t -1 # move window one position to the left
+bind -r > swap-window -t +1 # move window one position to the right
 
 
 # window splitting
