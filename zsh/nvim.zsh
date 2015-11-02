@@ -1,1 +1,4 @@
 #
+
+alias vi='nvim'
+

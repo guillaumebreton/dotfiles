@@ -2,7 +2,7 @@
 
 pwd=$(pwd)
 
-if [ -d "$HOME/.sources" ]; then
+if [ -f "$HOME/.sources" ]; then
   rm "$HOME/.sources"
 fi
 add_source (){
@@ -45,6 +45,15 @@ if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
   $HOME/.fzf/install
 fi
+
+echo "+ Install nvim settings"
+
+if [ -d "$HOME/.config/nvim" ]; then
+  mkdir -p .config/nvim
+  #install plug
+  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+link_replace "$pwd/nvim/init.vim" "$HOME/.config/nvim/init.vim"
 
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"
