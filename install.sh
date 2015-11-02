@@ -48,7 +48,7 @@ fi
 
 echo "+ Install nvim settings"
 
-if [ -d "$HOME/.config/nvim" ]; then
+if [ ! -d "$HOME/.config/nvim" ]; then
   mkdir -p .config/nvim
   #install plug
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
