@@ -1,7 +1,5 @@
 # [Created by task 2.3.0 12/3/2014 10:33:25]
 # Taskwarrior program configuration file.
-# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-faq',
-# 'man task-tutorial', 'man task-color', 'man task-sync' or 'man taskrc'
 
 # Here is an example of entries that use the default, override and blank values
 #   variable=foo   -- By specifying a value, this overrides the default
@@ -35,3 +33,8 @@ default.command=ls
 weekstart=monday
 
 editor=vi
+taskd.certificate=\/Users\/gbreton\/.task\/guillaume_breton.cert.pem
+taskd.key=\/Users\/gbreton\/.task\/guillaume_breton.key.pem
+taskd.ca=\/Users\/gbreton\/.task\/ca.cert.pem
+taskd.server=92.222.90.203:53589
+taskd.credentials=Public\/guillaume breton\/a617e4ac-3f61-4689-9b64-16bbe691dad0

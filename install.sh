@@ -33,13 +33,6 @@ if [ ! -d "$HOME/.zprezto" ]; then
   chsh -s /bin/zsh
 fi
 
-echo "+ Add autoenv"
-if [ ! -d "$HOME/.zsh-autoenv" ]; then
-  git clone https://github.com/Tarrasch/zsh-autoenv "$HOME/.zsh-autoenv"
-fi
-add_source $HOME/.zsh-autoenv/autoenv.zsh
-
-
 echo "+ Add fzf"
 if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
