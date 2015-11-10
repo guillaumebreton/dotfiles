@@ -1,4 +1,5 @@
 alias dm="docker-machine"
+alias dc="docker-compose"
 alias d="docker"
 
 drme() { docker rm $(docker ps -qa --filter 'status=exited'); }
@@ -14,4 +15,3 @@ dri()  { docker rmi -f $(docker images -q --filter "dangling=true"); }
 dl() {docker logs $1}
 dlf() {docker logs -f $1}
 alias dps="d ps"
-

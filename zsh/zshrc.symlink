@@ -38,15 +38,6 @@ export PATH="$HOME/bin:$PATH"
 export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$GOPATH/bin:$KAFKA_HOME/bin:$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
-#load extra (github etc)
-if [ -f ~/.extras ]; then
-  source ~/.extras
-fi
-
-for file in $(cat ~/.sources)
-do
-  source $file
-done
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -60,4 +51,13 @@ export PATH="$HOME/Tools/homebrew/bin:$PATH"
 #rehash every time
 zstyle ":completion:*:commands" rehash 1
 
+#load extra (github etc)
+if [ -f ~/.extras ]; then
+  source ~/.extras
+fi
+
+for file in $(cat ~/.sources)
+do
+  source $file
+done
 eval "$(direnv hook zsh)"
