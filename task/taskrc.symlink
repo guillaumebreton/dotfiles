@@ -32,7 +32,7 @@ report.week.sort=scheduled+
 default.command=ls
 weekstart=monday
 
-editor=vi
+editor=nvim
 taskd.certificate=\/Users\/gbreton\/.task\/guillaume_breton.cert.pem
 taskd.key=\/Users\/gbreton\/.task\/guillaume_breton.key.pem
 taskd.ca=\/Users\/gbreton\/.task\/ca.cert.pem
