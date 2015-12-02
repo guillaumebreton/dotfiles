@@ -12,3 +12,7 @@ ts(){
 tad(){
   task add $@ sched:today
 }
+
+tpp(){
+  task $@ mod due sched:tomorrow
+}
