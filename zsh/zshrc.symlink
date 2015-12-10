@@ -45,8 +45,8 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export PATH="$HOME/bin:$HOME/Tools/homebrew/bin:$PATH"
 
-export PATH="$HOME/Tools/homebrew/bin:$PATH"
 
 #rehash every time
 zstyle ":completion:*:commands" rehash 1
@@ -61,3 +61,6 @@ do
   source $file
 done
 eval "$(direnv hook zsh)"
+
+
+
