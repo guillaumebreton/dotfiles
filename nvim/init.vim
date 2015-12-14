@@ -26,6 +26,9 @@ filetype off                  " required
 set mouse=a
 set ruler
 
+" hightlight the cursor line
+set cursorline
+
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -49,10 +52,18 @@ filetype on
 filetype plugin on
 filetype indent on
 
+
 " No save backup by .swp
 set nowb
 set noswapfile
 set noar
+
+" Highlight searches
+set hlsearch
+" Ignore case of searches
+set ignorecase
+" Highlight dynamically as pattern is typed
+set incsearch
 
 " disable sound
 set visualbell
