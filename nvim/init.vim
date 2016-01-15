@@ -75,7 +75,7 @@ set noerrorbells
 autocmd BufWritePre * :%s/\s\+$//e
 
 " enable relative number toggling
-" set number
+set number
 " function! NumberToggle()
 "   if(&relativenumber == 1)
 "     set norelativenumber
