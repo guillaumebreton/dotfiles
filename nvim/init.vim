@@ -7,9 +7,11 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
 Plug 'markcornick/vim-terraform'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -73,16 +75,16 @@ set noerrorbells
 autocmd BufWritePre * :%s/\s\+$//e
 
 " enable relative number toggling
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" set number
+" function! NumberToggle()
+"   if(&relativenumber == 1)
+"     set norelativenumber
+"     set number
+"   else
+"     set relativenumber
+"   endif
+" endfunc
+" nnoremap <C-n> :call NumberToggle()<cr>
 
 " Hightlight
 if has("autocmd")
@@ -121,4 +123,21 @@ set clipboard=unnamedplus,unnamed
 " Hide highlight
 nnoremap <F3> :noh<CR>
 
-nnoremap <c-p> :FZF<cr>
+" Launch fwf
+nnoremap <c-t> :FZF<cr>
+
+" n search forward and N back ard
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
+"quickly add blanck line
+nnoremap [<space>  :put! =''<cr>
+nnoremap ]<space>  :put =''<cr>
+
+" Don't look selection when shifting
+xnoremap <  <gv
+xnoremap >  >gv
+"multi cursor mapping
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
