@@ -11,7 +11,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
 Plug 'markcornick/vim-terraform'
-Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 

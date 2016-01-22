@@ -26,6 +26,8 @@ setopt auto_pushd
 # Bind end of line, start of line
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
 bindkey -e
 
 
