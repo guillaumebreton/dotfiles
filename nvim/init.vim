@@ -128,9 +128,13 @@ nnoremap <c-t> :FZF<cr>
 " n search forward and N back ard
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
-"quickly add blanck line
+" quickly add blanck line
 nnoremap [<space>  :put! =''<cr>
 nnoremap ]<space>  :put =''<cr>
+
+" Move line back and forth
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Don't look selection when shifting
 xnoremap <  <gv
