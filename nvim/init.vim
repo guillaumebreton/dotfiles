@@ -11,6 +11,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
 Plug 'markcornick/vim-terraform'
+Plug 'scrooloose/nerdtree'
 
 call plug#end()
 
@@ -124,6 +125,9 @@ nnoremap <F3> :noh<CR>
 
 " Launch fwf
 nnoremap <c-t> :FZF<cr>
+
+"Launch nerd treee
+nnoremap <c-e> :NERDTreeToggle<CR>
 
 " n search forward and N back ard
 nnoremap <expr> n  'Nn'[v:searchforward]
