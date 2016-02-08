@@ -2,4 +2,12 @@
 alias gst="git status"
 alias gd="git diff"
 alias gds="git diff --staged"
-
+alias gco="git commit -m "
+alias gca="git commit --amend "
+alias gaa="git add --all"
+alias gp="git push"
+alias gpa="git push --tags"
+alias gpf="git push -f"
+alias gpu="git pull"
+alias grh="git reset --hard head"
+alias gri="git rebase -i"

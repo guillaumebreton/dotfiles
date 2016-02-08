@@ -9,7 +9,7 @@ alias vi='nvim'
 #shell
 alias reload='exec $SHELL'
 
-plugins=(git docker)
+plugins=(docker)
 
 #history and general option
 # setopt append_history
