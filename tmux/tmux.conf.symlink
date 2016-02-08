@@ -27,13 +27,6 @@ set -g history-limit 5000
 # use vim key bindings
 setw -g mode-keys vi
 
-# act like vim
-setw -g mode-keys vi
-bind C-h select-pane -L
-bind C-j select-pane -D
-bind C-k select-pane -U
-bind C-l select-pane -R
-
 bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
 
@@ -71,6 +64,14 @@ set-option -g default-command "reattach-to-user-namespace -l zsh"
 # move window
 bind -r < swap-window -t -1 # move window one position to the left
 bind -r > swap-window -t +1 # move window one position to the right
+
+# act like vim
+setw -g mode-keys vi
+bind C-h select-pane -L
+bind C-j select-pane -D
+bind C-k select-pane -U
+bind C-l select-pane -R
+bind C-n next-window
 
 
 # window splitting
