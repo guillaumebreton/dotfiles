@@ -2,7 +2,7 @@
 alias gst="git status"
 alias gd="git diff"
 alias gds="git diff --staged"
-alias gco="git commit -m "
+alias gcm="git commit -m "
 alias gca="git commit --amend "
 alias gaa="git add --all"
 alias gp="git push"
