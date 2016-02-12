@@ -1,5 +1,7 @@
 # git aliases
 alias gst="git status"
+alias gs="git stash"
+alias gsp="git stash pop"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gcm="git commit -m "

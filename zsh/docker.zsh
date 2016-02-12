@@ -20,3 +20,4 @@ dri()  { docker rmi -f $(docker images -q --filter "dangling=true"); }
 dl() {docker logs $1}
 dlf() {docker logs -f $1}
 alias dps="d ps"
+alias dpsa="d pas -a"
