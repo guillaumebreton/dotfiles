@@ -20,9 +20,9 @@ report.ls.filter=status:pending and due:today or status:pending and +OVERDUE or 
 report.ls.columns=id,project,priority,tags,description
 report.ls.labels= ID,Proj,Pri,Tags,Description
 
-report.list.sort=project+,scheduled+,priority-,start-
-report.list.columns=id,project,priority,description
-report.list.labels= ID,Proj,Pri,Description
+report.list.sort=project+,due+,scheduled+,priority-,start-
+report.list.columns=id,project,priority,tags,due,scheduled,description
+report.list.labels= ID,Proj,Pri,Tags,Due,Sched,Description
 report.next.filter=status:pending and sched:
 report.next.columns=id,project,priority,scheduled,description
 report.next.labels= ID,Proj,Pri,Sched,Description

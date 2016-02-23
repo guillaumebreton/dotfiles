@@ -13,3 +13,7 @@ alias gpf="git push -f"
 alias gpu="git pull"
 alias grh="git reset --hard head"
 alias gri="git rebase -i"
+
+gpor(){
+  open $(grep 'remote:.*https://' $(git push) | sed 's|remote:.*https|https|g')
+}
