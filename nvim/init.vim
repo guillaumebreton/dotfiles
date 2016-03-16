@@ -1,17 +1,17 @@
 "Plugin install
 call plug#begin('~/.vim/plugged')
 Plug 'jelera/vim-javascript-syntax'
-Plug 'plasticboy/vim-markdown'
-Plug 'derekwyatt/vim-scala'
-Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'derekwyatt/vim-scala'
+Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
-Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
 
@@ -38,22 +38,33 @@ set hidden
 
 " Set longer history
 set history=1000
+
 " Enable shell completion
 set wildmenu
 
 " Indent settings
 set backspace=2
 set autoindent
+
+" Set the number of column a tab counts for
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+
+" Replace tab by space in insert mode
 set expandtab
-filetype plugin indent on    " required
+
+" Highlight
 syntax on
 filetype on
 filetype plugin on
 filetype indent on
 
+" Keep indentation when wrapping lines…
+set breakindent
+
+" Wrap lines by words
+set linebreak
 
 " No save backup by .swp
 set nowb
@@ -67,24 +78,19 @@ set ignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 
-" disable sound
+" disable sounds
 set visualbell
 set noerrorbells
+
+" Auto reload file
+set autoread
+
 
 " Delete all whitespace in end of line
 autocmd BufWritePre * :%s/\s\+$//e
 
 " enable relative number toggling
 set number
-" function! NumberToggle()
-"   if(&relativenumber == 1)
-"     set norelativenumber
-"     set number
-"   else
-"     set relativenumber
-"   endif
-" endfunc
-" nnoremap <C-n> :call NumberToggle()<cr>
 
 " Hightlight
 if has("autocmd")
@@ -107,18 +113,7 @@ set wildignore+=build/*,tmp/*,vendor/cache/*,bin/*
 set wildignore+=.sass-cache/*
 set wildignore+=*/vendor/*
 set wildignore+=*/deps/*
-
-"Folding settings
-" set foldenable
-" set foldmethod=syntax
-" set foldcolumn=0
-" set foldlevel=0
-" set foldminlines=3
-" set foldnestmax=5
-" set foldlevelstart=1
-"
 set clipboard=unnamedplus,unnamed
-
 
 " Hide highlight
 nnoremap <F3> :noh<CR>
@@ -126,12 +121,10 @@ nnoremap <F3> :noh<CR>
 " Launch fwf
 nnoremap <c-t> :FZF<cr>
 
-"Launch nerd treee
-nnoremap <c-e> :NERDTreeToggle<CR>
-
 " n search forward and N back ard
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
+
 " quickly add blanck line
 nnoremap [<space>  :put! =''<cr>
 nnoremap ]<space>  :put =''<cr>
@@ -143,8 +136,16 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 " Don't look selection when shifting
 xnoremap <  <gv
 xnoremap >  >gv
+
+" Leadeer mapping
+let mapleader=" "
+
 "multi cursor mapping
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+"deoplete enabled at startup
+let g:deoplete#enable_at_startup = 1
+
