@@ -12,6 +12,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'Shougo/deoplete.nvim'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 
@@ -138,7 +139,7 @@ xnoremap <  <gv
 xnoremap >  >gv
 
 " Leadeer mapping
-let mapleader=" "
+" let mapleader=" "
 
 "multi cursor mapping
 let g:multi_cursor_next_key='<C-n>'
@@ -149,3 +150,14 @@ let g:multi_cursor_quit_key='<Esc>'
 "deoplete enabled at startup
 let g:deoplete#enable_at_startup = 1
 
+" in n vim set the cursor depnding on type
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+endif
+
+" folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable
+set foldlevel=0         "this is just what i use
+nnoremap <Space> za
