@@ -161,3 +161,6 @@ set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable
 set foldlevel=0         "this is just what i use
 nnoremap <Space> za
+
+
+let g:fzf_buffers_jump = 1
