@@ -86,6 +86,9 @@ bind v split-window -v
 unbind r
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
+# bind key for synchronizing panes
+bind-key y set-window-option synchronize-panes
+
 ###########################
 # Status Bar
 ###########################
