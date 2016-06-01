@@ -1,18 +1,24 @@
 "Plugin install
 call plug#begin('~/.vim/plugged')
-Plug 'jelera/vim-javascript-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
+Plug 'Shougo/deoplete.nvim'
+
+" code
+Plug 'jiangmiao/auto-pairs'
+
+" langs
+Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
-Plug 'Shougo/deoplete.nvim'
 Plug 'cespare/vim-toml'
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -113,6 +119,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.svg
 set wildignore+=build/*,tmp/*,vendor/cache/*,bin/*
 set wildignore+=.sass-cache/*
 set wildignore+=*/vendor/*
+set wildignore+=*/node_nodules/*
 set wildignore+=*/deps/*
 set clipboard=unnamedplus,unnamed
 
