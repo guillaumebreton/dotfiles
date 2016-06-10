@@ -144,6 +144,9 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 xnoremap <  <gv
 xnoremap >  >gv
 
+" Y act like D, etc
+nnoremap Y y$
+
 " Leadeer mapping
 let mapleader=","
 
