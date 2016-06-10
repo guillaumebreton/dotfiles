@@ -1,4 +1,4 @@
-"Plugin install
+" Plugin install
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
@@ -7,7 +7,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/deoplete.nvim'
-
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'junegunn/vim-journal'
 " code
 Plug 'jiangmiao/auto-pairs'
 
@@ -19,6 +20,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
 Plug 'mattn/emmet-vim'
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -27,7 +29,7 @@ set t_Co=256
 set laststatus=2
 colorscheme monokai
 
-set nocompatible              " be iMproved, required
+set nocompatible              " be iMproved, required:
 filetype off                  " required
 
 
@@ -101,12 +103,12 @@ set number
 
 " Hightlight
 if has("autocmd")
-	filetype on
-	" md, markdown, and mk are markdown and define buffer-local preview
-	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
+  filetype on
+  " md, markdown, and mk are markdown and define buffer-local preview
+  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
 
-	" add json syntax highlighting
-	au BufNewFile,BufRead *.json set ft=javascript
+  " add json syntax highlighting
+  au BufNewFile,BufRead *.json set ft=javascript
 
   " add rabl as ruby files
   au BufNewFile,BufRead *.rabl set ft=ruby
@@ -126,9 +128,6 @@ set clipboard=unnamedplus,unnamed
 " Hide highlight
 nnoremap <F3> :noh<CR>
 
-" Launch fwf
-nnoremap <c-t> :FZF<cr>
-
 " n search forward and N back ard
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
@@ -146,7 +145,7 @@ xnoremap <  <gv
 xnoremap >  >gv
 
 " Leadeer mapping
-" let mapleader=" "
+let mapleader=","
 
 "multi cursor mapping
 let g:multi_cursor_next_key='<C-n>'
@@ -169,5 +168,25 @@ set nofoldenable
 set foldlevel=0         "this is just what i use
 nnoremap <Space> za
 
-
 let g:fzf_buffers_jump = 1
+
+" Get off my lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" Go specific settings
+au FileType go nmap <leader>rt <Plug>(go-run-tab)
+au FileType go nmap <Leader>rs <Plug>(go-run-split)
+au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+" Launch fwf"
+	let g:go_def_mapping_enabled = 0
+nnoremap <C-t> @:echoe "Use fuck"<CR>
+nnoremap <buffer> <silent> <C-t> :FZF<cr>
+" nnoremap <C-t> :FZF<cr>
