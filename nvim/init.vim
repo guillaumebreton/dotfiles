@@ -189,7 +189,5 @@ au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " Launch fwf"
-	let g:go_def_mapping_enabled = 0
-nnoremap <C-t> @:echoe "Use fuck"<CR>
-nnoremap <buffer> <silent> <C-t> :FZF<cr>
-" nnoremap <C-t> :FZF<cr>
+let g:go_def_mapping_enabled = 0
+nnoremap <C-t> :FZF<cr>
