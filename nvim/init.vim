@@ -191,3 +191,4 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 " Launch fwf"
 let g:go_def_mapping_enabled = 0
 nnoremap <C-t> :FZF<cr>
+au BufRead,BufNewFile *.md setlocal textwidth=80

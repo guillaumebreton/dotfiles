@@ -78,9 +78,9 @@ bind q confirm-before -p "kill-window #W? (y/n)" kill-window
 
 # window splitting
 unbind %
-bind h split-window -h
+bind h split-window -h -c "#{pane_current_path}"
 unbind '"'
-bind v split-window -v
+bind v split-window -v -c "#{pane_current_path}"
 
 # force a reload of the config file
 unbind r
