@@ -3,12 +3,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'crusoexia/vim-monokai'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'junegunn/vim-journal'
+Plug 'terryma/vim-expand-region'
 " code
 Plug 'jiangmiao/auto-pairs'
 
@@ -36,6 +37,10 @@ filetype off                  " required
 " Mouse control
 set mouse=a
 set ruler
+
+" Make it obvious where 80 column is
+set textwidth=80
+set colorcolumn=+1
 
 " hightlight the cursor line
 set cursorline
@@ -106,6 +111,8 @@ if has("autocmd")
   filetype on
   " md, markdown, and mk are markdown and define buffer-local preview
   au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
+  au BufRead,BufNewFile *.md setlocal textwidth=80
+  au BufRead,BufNewFile *.txt setlocal textwidth=80
 
   " add json syntax highlighting
   au BufNewFile,BufRead *.json set ft=javascript
@@ -125,6 +132,40 @@ set wildignore+=*/node_nodules/*
 set wildignore+=*/deps/*
 set clipboard=unnamedplus,unnamed
 
+" ============================================================
+" Folding settings
+" ============================================================
+
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable
+set foldlevel=0         "this is just what i use
+
+" ============================================================
+" Selection settings
+" ============================================================
+
+" Don't look selection when shifting
+xnoremap <  <gv
+xnoremap >  >gv
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" ============================================================
+" Move BINDINGS
+" ============================================================
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" ============================================================
+" KEYS BINDINGS
+" ============================================================
+
+let mapleader = "\<SPACE>"
+
 " Hide highlight
 nnoremap <F3> :noh<CR>
 
@@ -133,22 +174,32 @@ nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
 " quickly add blanck line
-nnoremap [<space>  :put! =''<cr>
-nnoremap ]<space>  :put =''<cr>
+nmap <leader>[  :put! =''<cr>
+nmap <leader>]  :put =''<cr>
 
-" Move line back and forth
-nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
-nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" Quick fold
+nmap <leader>f  za
 
-" Don't look selection when shifting
-xnoremap <  <gv
-xnoremap >  >gv
+" write
+nmap <leader>w  :w<cr>
+
+" delete line
+nmap <leader>d  dd
+
+" Enter visual mod
+nmap <Leader><Leader> V
+
+" Move the end of the pasted line
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 
 " Y act like D, etc
 nnoremap Y y$
 
-" Leadeer mapping
-let mapleader=","
+" Move line back and forth
+nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
+nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 
 "multi cursor mapping
 let g:multi_cursor_next_key='<C-n>'
@@ -157,27 +208,16 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 "deoplete enabled at startup
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " in n vim set the cursor depnding on type
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 endif
 
-" folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable
-set foldlevel=0         "this is just what i use
-nnoremap <Space> za
-
+" Launch fzf
+let g:go_def_mapping_enabled = 0
 let g:fzf_buffers_jump = 1
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
 
 " Go specific settings
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
@@ -188,7 +228,16 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
-" Launch fwf"
-let g:go_def_mapping_enabled = 0
 nnoremap <C-t> :FZF<cr>
 au BufRead,BufNewFile *.md setlocal textwidth=80
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()

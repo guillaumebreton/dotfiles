@@ -16,4 +16,6 @@
 [pull]
 	rebase = true
 [user]
-	signingkey = F20200FE
+	signingkey = C0D527C1
+[rebase]
+	autosquash = true
