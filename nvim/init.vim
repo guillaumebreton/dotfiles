@@ -135,8 +135,8 @@ set splitright  " Splitting a window will put the new window right of the curren
 "-----------------------------------------------------------------------------
 " White characters settings
 "-----------------------------------------------------------------------------
-set list                                    " Show listchars by default
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,trail:·,nbsp:·
+" set list                                    " Show listchars by default
+" set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,trail:·,nbsp:·
 
 "-----------------------------------------------------------------------------
 " Filetype settings
@@ -224,12 +224,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>
 
-" Center screen on search
-nnoremap n :norm! nzz<CR>
-nnoremap N :norm! Nzz<CR>
-vnoremap n :norm! nzz<CR>
-vnoremap N :norm! Nzz<CR>l
-
 " Hide highlight
 nnoremap <F3> :noh<CR>
 
@@ -258,10 +252,6 @@ nnoremap Y y$
 " Don't yank to default register when changing something
 nnoremap c "xc
 xnoremap c "xc
-
-" Fix cw and ce
-nmap cw ce
-nmap dw de
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
