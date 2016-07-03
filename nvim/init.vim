@@ -1,34 +1,55 @@
-" Plugin install
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dispatch'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'crusoexia/vim-monokai'
-Plug 'mattn/emmet-vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'terryma/vim-expand-region'
-" code
-Plug 'jiangmiao/auto-pairs'
+"-----------------------------------------------------------------------------
+"  I. Plugins
+"-----------------------------------------------------------------------------
+call plug#begin('~/.config/nvim/plugged')
 
-" langs
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+" Surround (cs"')
+Plug 'tpope/vim-surround'
+
+" All usage of multiple cursor
+Plug 'terryma/vim-multiple-cursors'
+
+" Autocomplete
+Plug 'Shougo/deoplete.nvim'
+
+" Auto pair quote brakets etc
+Plug 'cohama/lexima.vim'
+Plug 'mattn/emmet-vim'
+
+" Snippets management
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+
+" Syntax
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
-Plug 'mattn/emmet-vim'
 Plug 'fatih/vim-go'
+Plug 'posva/vim-vue'
+Plug 'keith/tmux.vim'
+
+" Misc plugins
+Plug 'vimwiki/vimwiki'
+
+" Colorshemes
+Plug 'crusoexia/vim-monokai'
 
 call plug#end()
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+"-----------------------------------------------------------------------------
+"  II. Setttings
+"-----------------------------------------------------------------------------
+colorscheme monokai
 set t_Co=256
 set laststatus=2
-colorscheme monokai
 
 set nocompatible              " be iMproved, required:
 filetype off                  " required
@@ -39,7 +60,7 @@ set mouse=a
 set ruler
 
 " Make it obvious where 80 column is
-set textwidth=80
+" set textwidth=80
 set colorcolumn=+1
 
 " hightlight the cursor line
@@ -71,8 +92,6 @@ set expandtab
 " Highlight
 syntax on
 filetype on
-filetype plugin on
-filetype indent on
 
 " Keep indentation when wrapping lines…
 set breakindent
@@ -85,12 +104,6 @@ set nowb
 set noswapfile
 set noar
 
-" Highlight searches
-set hlsearch
-" Ignore case of searches
-set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
 
 " disable sounds
 set visualbell
@@ -105,6 +118,36 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " enable relative number toggling
 set number
+
+"-----------------------------------------------------------------------------
+" Search settings
+"-----------------------------------------------------------------------------
+set hlsearch    " Highlight searches
+set ignorecase  " Ignore case of searches
+set incsearch   " Highlight dynamically as pattern is typed
+
+"-----------------------------------------------------------------------------
+" Split settings (more natural ones)
+"-----------------------------------------------------------------------------
+set splitbelow  " Splitting a window will put the new window below the current
+set splitright  " Splitting a window will put the new window right of the current
+
+"-----------------------------------------------------------------------------
+" White characters settings
+"-----------------------------------------------------------------------------
+set list                                    " Show listchars by default
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,trail:·,nbsp:·
+
+"-----------------------------------------------------------------------------
+" Filetype settings
+"-----------------------------------------------------------------------------
+filetype plugin on
+filetype indent on
+
+"-----------------------------------------------------------------------------
+" Neovim specific settings
+"-----------------------------------------------------------------------------
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " Hightlight
 if has("autocmd")
@@ -149,22 +192,43 @@ set foldlevel=0         "this is just what i use
 xnoremap <  <gv
 xnoremap >  >gv
 
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
-" ============================================================
-" Move BINDINGS
-" ============================================================
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
-" ============================================================
-" KEYS BINDINGS
-" ============================================================
-
+"-----------------------------------------------------------------------------
+"  III. Mappings
+"-----------------------------------------------------------------------------
 let mapleader = "\<SPACE>"
+
+
+"-----------------------------------------------------------------------------
+" Disable arrow key, space and ex mode
+"-----------------------------------------------------------------------------
+nnoremap <up> <NOP>
+nnoremap <down> <NOP>
+nnoremap <left> <NOP>
+nnoremap <right> <NOP>
+nnoremap <bs> <NOP>
+nnoremap <delete> <NOP>
+inoremap <up> <NOP>
+inoremap <down> <NOP>
+inoremap <left> <NOP>
+inoremap <right> <NOP>
+nnoremap <Space> <NOP>
+inoremap <F1> <NOP>
+nnoremap <F1> <NOP>
+nnoremap Q <NOP>
+
+
+" Easy window motion
+nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>
+
+" Center screen on search
+nnoremap n :norm! nzz<CR>
+nnoremap N :norm! Nzz<CR>
+vnoremap n :norm! nzz<CR>
+vnoremap N :norm! Nzz<CR>l
 
 " Hide highlight
 nnoremap <F3> :noh<CR>
@@ -180,12 +244,6 @@ nmap <leader>]  :put =''<cr>
 " Quick fold
 nmap <leader>f  za
 
-" write
-nmap <leader>w  :w<cr>
-
-" delete line
-nmap <leader>d  dd
-
 " Enter visual mod
 nmap <Leader><Leader> V
 
@@ -196,6 +254,18 @@ nnoremap <silent> p p`]
 
 " Y act like D, etc
 nnoremap Y y$
+
+" Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Fix cw and ce
+nmap cw ce
+nmap dw de
+
+" Print current date
+nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
+nmap <Leader>t :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<cr>
 
 " Move line back and forth
 nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
@@ -208,7 +278,7 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 "deoplete enabled at startup
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 " in n vim set the cursor depnding on type
 if has('nvim')
@@ -231,13 +301,30 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 nnoremap <C-t> :FZF<cr>
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
+
+
+"-----------------------------------------------------------------------------
+"  IV. Plugins configuration
+"-----------------------------------------------------------------------------
+" Snippet configuration
+let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets'
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ["neosnippet"]
+
+function! s:neosnippet_complete()
+  if pumvisible()
+    return "\<c-n>"
+  else
+    if neosnippet#expandable_or_jumpable()
+      return "\<Plug>(neosnippet_expand_or_jump)"
+    endif
+    return "\<tab>"
+  endif
 endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
+
+imap <expr><TAB> <SID>neosnippet_complete()
+
+" Setup vim wiki as markdown
+let g:vimwiki_list = [{'path': '~/wiki/',
+                       \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
+
