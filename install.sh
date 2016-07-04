@@ -47,6 +47,7 @@ if [ ! -d "$HOME/.config/nvim" ]; then
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 link_replace "$pwd/nvim/init.vim" "$HOME/.config/nvim/init.vim"
+link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim"
 
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"

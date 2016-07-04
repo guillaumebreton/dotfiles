@@ -23,7 +23,6 @@ Plug 'mattn/emmet-vim'
 
 " Snippets management
 Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 
 " Syntax
 Plug 'pangloss/vim-javascript'
@@ -41,6 +40,19 @@ Plug 'vimwiki/vimwiki'
 
 " Colorshemes
 Plug 'crusoexia/vim-monokai'
+" Hybrid
+Plug 'w0ng/vim-hybrid'
+" Badwolf
+Plug 'sjl/badwolf'
+" Molokai
+Plug 'tomasr/molokai'
+" Iceberg
+Plug 'cocopon/iceberg.vim'
+" Tender
+Plug 'jacoborus/tender.vim'
+" Base 16
+Plug 'chriskempson/base16-vim'
+
 
 call plug#end()
 
@@ -111,7 +123,6 @@ set noerrorbells
 
 " Auto reload file
 set autoread
-
 
 " Delete all whitespace in end of line
 autocmd BufWritePre * :%s/\s\+$//e
@@ -201,16 +212,16 @@ let mapleader = "\<SPACE>"
 "-----------------------------------------------------------------------------
 " Disable arrow key, space and ex mode
 "-----------------------------------------------------------------------------
-nnoremap <up> <NOP>
-nnoremap <down> <NOP>
-nnoremap <left> <NOP>
-nnoremap <right> <NOP>
-nnoremap <bs> <NOP>
-nnoremap <delete> <NOP>
-inoremap <up> <NOP>
-inoremap <down> <NOP>
-inoremap <left> <NOP>
-inoremap <right> <NOP>
+" nnoremap <up> <NOP>
+" nnoremap <down> <NOP>
+" nnoremap <left> <NOP>
+" nnoremap <right> <NOP>
+" nnoremap <bs> <NOP>
+" nnoremap <delete> <NOP>
+" inoremap <up> <NOP>
+" inoremap <down> <NOP>
+" inoremap <left> <NOP>
+" inoremap <right> <NOP>
 nnoremap <Space> <NOP>
 inoremap <F1> <NOP>
 nnoremap <F1> <NOP>
@@ -253,6 +264,10 @@ nnoremap Y y$
 nnoremap c "xc
 xnoremap c "xc
 
+" Quickly edit the configuration file
+nmap <leader>c :tabedit ~/.config/nvim/init.vim<cr>
+nmap <leader>r :source ~/.config/nvim/init.vim<cr>
+
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
 nmap <Leader>t :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<cr>
@@ -261,14 +276,16 @@ nmap <Leader>t :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<cr>
 nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
 nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 
+" Remap page up/down to Ctrl-J/K
+nmap <C-J> <C-F>
+nmap <C-K> <C-B>
+
 "multi cursor mapping
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-"deoplete enabled at startup
-let g:deoplete#enable_at_startup = 1
 
 " in n vim set the cursor depnding on type
 if has('nvim')
@@ -279,28 +296,25 @@ endif
 let g:go_def_mapping_enabled = 0
 let g:fzf_buffers_jump = 1
 
-" Go specific settings
-au FileType go nmap <leader>rt <Plug>(go-run-tab)
-au FileType go nmap <Leader>rs <Plug>(go-run-split)
-au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-
 nnoremap <C-t> :FZF<cr>
 au BufRead,BufNewFile *.md setlocal textwidth=80
-
-
 
 "-----------------------------------------------------------------------------
 "  IV. Plugins configuration
 "-----------------------------------------------------------------------------
 " Snippet configuration
-let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets'
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ["neosnippet"]
+let g:neosnippet#snippets_directory = "~/.config/nvim/snippets"
+let g:neosnippet#disable_runtime_snippets = { "_": 1, }
 
+"deoplete enabled at startup
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 'ignorecase'
+let g:deoplete#sources = {}
+let g:deoplete#sources_ = ['buffer','tag']
+
+" If the deoplete menu is opened, select next item
+" else if this a neosnippet expand it
+" else insert a tab
 function! s:neosnippet_complete()
   if pumvisible()
     return "\<c-n>"
@@ -312,9 +326,19 @@ function! s:neosnippet_complete()
   endif
 endfunction
 
+" If deoplete menu opened, select the item and expand it with neosnippet
+" else insert a CR
+function! s:neosnippet_exec()
+  if pumvisible()
+    return deoplete#close_popup()."\<Plug>(neosnippet_expand)"
+  else
+    return "\<CR>"
+  endif
+endfunction
+
+imap <silent><expr><CR> <SID>neosnippet_exec()
 imap <expr><TAB> <SID>neosnippet_complete()
 
 " Setup vim wiki as markdown
 let g:vimwiki_list = [{'path': '~/wiki/',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
-
