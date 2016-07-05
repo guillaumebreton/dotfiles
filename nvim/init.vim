@@ -266,7 +266,10 @@ xnoremap c "xc
 
 " Quickly edit the configuration file
 nmap <leader>c :tabedit ~/.config/nvim/init.vim<cr>
-autocmd! bufwritepost vimrc source ~/.config/nvim/init.vim
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
@@ -312,59 +315,31 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
 
-" If the deoplete menu is opened, select next item
-" else if this a neosnippet expand it
-" else insert a tab
-function! s:neosnippet_complete()
-  if pumvisible()
-     return "\<c-n>"
-  else
-    if neosnippet#expandable_or_jumpable()
-      return "\<Plug>(neosnippet_expand_or_jump)"
+imap <expr><CR> <SID>smart_cr()
+imap <expr><TAB> <SID>smart_tab()
+smap <expr><CR> <SID>smart_cr()
+smap <expr><CR> <SID>smart_tab()
+
+function! s:smart_cr()
+    if pumvisible()
+      call deoplete#close_popup()
+      if neosnippet#expandable_or_jumpable()
+        return "\<Plug>(neosnippet_expand_or_jump)"
+      else
+        return deoplete#close_popup()."\<C-y>"
+      endif
     endif
-    return "\<tab>"
-  endif
+    return "\<CR>"
 endfunction
 
-" If deoplete menu opened, select the item and expand it with neosnippet
-" else insert a CR
-" function! s:neosnippet_exec()
-"   if pumvisible()
-"     return deoplete#close_popup()."\<Plug>(neosnippet_expand)"
-"   else
-"     return "\<CR>"
-"   endif
-" endfunction
-
-" inoremap <silent><expr><CR> <SID>neosnippet_exec()
-" imap <expr><TAB> <SID>neosnippet_complete()
-" inoremap <silent><expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-
-" <CR>: If popup menu visible, expand snippet or close popup with selection,
-"       Otherwise, check if within empty pair and use delimitMate.
-imap <silent><expr><CR> pumvisible() ?
-	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#mappings#close_popup())
-		\ :  "\<CR>"
-
-" <Tab> completion:
-" 1. If popup menu is visible, select and insert next item
-" 2. Otherwise, if within a snippet, jump to next input
-" 3. Otherwise, if preceding chars are whitespace, insert tab char
-" 4. Otherwise, start manual autocomplete
-imap <silent><expr><TAB> pumvisible() ? "\<C-n>"
-	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#mappings#manual_complete()))
-
-smap <silent><expr><TAB> pumvisible() ? "\<C-n>"
-	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#mappings#manual_complete()))
-
-function! s:is_whitespace() "{{{
-	let col = col('.') - 1
-	return ! col || getline('.')[col - 1] =~? '\s'
-endfunction "}}}
+function! s:smart_tab()
+    if pumvisible()
+      return "\<C-n>"
+    elseif neosnippet#expandable_or_jumpable()
+      return "\<Plug>(neosnippet_expand_or_jump)"
+    endif
+    return "\<TAB>"
+endfunction
 
 " Setup vim wiki as markdown
 let g:vimwiki_list = [{'path': '~/wiki/',
