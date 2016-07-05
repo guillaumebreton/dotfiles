@@ -18,7 +18,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/deoplete.nvim'
 
 " Auto pair quote brakets etc
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'mattn/emmet-vim'
 
 " Snippets management
@@ -266,7 +266,7 @@ xnoremap c "xc
 
 " Quickly edit the configuration file
 nmap <leader>c :tabedit ~/.config/nvim/init.vim<cr>
-nmap <leader>r :source ~/.config/nvim/init.vim<cr>
+autocmd! bufwritepost vimrc source ~/.config/nvim/init.vim
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
@@ -317,7 +317,7 @@ let g:deoplete#sources_ = ['buffer','tag']
 " else insert a tab
 function! s:neosnippet_complete()
   if pumvisible()
-    return "\<c-n>"
+     return "\<c-n>"
   else
     if neosnippet#expandable_or_jumpable()
       return "\<Plug>(neosnippet_expand_or_jump)"
@@ -328,16 +328,43 @@ endfunction
 
 " If deoplete menu opened, select the item and expand it with neosnippet
 " else insert a CR
-function! s:neosnippet_exec()
-  if pumvisible()
-    return deoplete#close_popup()."\<Plug>(neosnippet_expand)"
-  else
-    return "\<CR>"
-  endif
-endfunction
+" function! s:neosnippet_exec()
+"   if pumvisible()
+"     return deoplete#close_popup()."\<Plug>(neosnippet_expand)"
+"   else
+"     return "\<CR>"
+"   endif
+" endfunction
 
-imap <silent><expr><CR> <SID>neosnippet_exec()
-imap <expr><TAB> <SID>neosnippet_complete()
+" inoremap <silent><expr><CR> <SID>neosnippet_exec()
+" imap <expr><TAB> <SID>neosnippet_complete()
+" inoremap <silent><expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+
+" <CR>: If popup menu visible, expand snippet or close popup with selection,
+"       Otherwise, check if within empty pair and use delimitMate.
+imap <silent><expr><CR> pumvisible() ?
+	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#mappings#close_popup())
+		\ :  "\<CR>"
+
+" <Tab> completion:
+" 1. If popup menu is visible, select and insert next item
+" 2. Otherwise, if within a snippet, jump to next input
+" 3. Otherwise, if preceding chars are whitespace, insert tab char
+" 4. Otherwise, start manual autocomplete
+imap <silent><expr><TAB> pumvisible() ? "\<C-n>"
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : deoplete#mappings#manual_complete()))
+
+smap <silent><expr><TAB> pumvisible() ? "\<C-n>"
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : deoplete#mappings#manual_complete()))
+
+function! s:is_whitespace() "{{{
+	let col = col('.') - 1
+	return ! col || getline('.')[col - 1] =~? '\s'
+endfunction "}}}
 
 " Setup vim wiki as markdown
 let g:vimwiki_list = [{'path': '~/wiki/',

@@ -18,6 +18,7 @@ link_replace() {
    echo " - rm file $2"
    rm $2
  fi
+
  echo " - link $1 -> $2"
  ln -s $1 $2
 }
@@ -47,7 +48,7 @@ if [ ! -d "$HOME/.config/nvim" ]; then
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 link_replace "$pwd/nvim/init.vim" "$HOME/.config/nvim/init.vim"
-link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim"
+link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim/snippets"
 
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"
@@ -67,6 +68,9 @@ for src in $(find $pwd -name \*.zsh -maxdepth 2  ); do
   echo " - $src"
   add_source $src
 done
+
+# prevent the z script to throw an error
+touch $HOME/.z
 
 exec $SHELL
 

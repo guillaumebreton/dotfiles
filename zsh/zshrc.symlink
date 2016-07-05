@@ -64,7 +64,6 @@ do
 done
 eval "$(direnv hook zsh)"
 
-
-
+. $HOME/.z.sh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
