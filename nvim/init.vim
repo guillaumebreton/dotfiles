@@ -3,6 +3,7 @@
 "-----------------------------------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
 
+
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Commentary plugin
@@ -15,10 +16,13 @@ Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 
 " Autocomplete
-Plug 'Shougo/deoplete.nvim'
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 " Auto pair quote brakets etc
-" Plug 'cohama/lexima.vim'
+Plug 'cohama/lexima.vim'
 Plug 'mattn/emmet-vim'
 
 " Snippets management
@@ -266,6 +270,7 @@ xnoremap c "xc
 
 " Quickly edit the configuration file
 nmap <leader>c :tabedit ~/.config/nvim/init.vim<cr>
+nmap <leader>r :source ~/.config/nvim/init.vim<cr>
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -315,6 +320,11 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
 
+" Lexima
+" Make lexima reloadable
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+
 imap <expr><CR> <SID>smart_cr()
 imap <expr><TAB> <SID>smart_tab()
 smap <expr><CR> <SID>smart_cr()
@@ -326,10 +336,11 @@ function! s:smart_cr()
       if neosnippet#expandable_or_jumpable()
         return "\<Plug>(neosnippet_expand_or_jump)"
       else
+        "deoplete#mappings#close_popup()
         return deoplete#close_popup()."\<C-y>"
       endif
     endif
-    return "\<CR>"
+    return lexima#expand('<CR>', 'i')
 endfunction
 
 function! s:smart_tab()
@@ -340,6 +351,7 @@ function! s:smart_tab()
     endif
     return "\<TAB>"
 endfunction
+
 
 " Setup vim wiki as markdown
 let g:vimwiki_list = [{'path': '~/wiki/',
