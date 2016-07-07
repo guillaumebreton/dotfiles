@@ -37,7 +37,11 @@ Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 Plug 'posva/vim-vue'
-Plug 'keith/tmux.vim'
+Plug 'tpope/vim-surround'
+" Plug 'keith/tmux.vim'
+
+" Neomake
+" Plug 'neomake/neomake'
 
 " Misc plugins
 Plug 'vimwiki/vimwiki'
@@ -131,9 +135,11 @@ set autoread
 " Delete all whitespace in end of line
 autocmd BufWritePre * :%s/\s\+$//e
 
-" enable relative number toggling
+" enable relative number
 set number
-
+set relativenumber
+autocmd InsertLeave * :set rnu
+autocmd InsertEnter * :set nornu | :set number
 "-----------------------------------------------------------------------------
 " Search settings
 "-----------------------------------------------------------------------------
@@ -212,7 +218,6 @@ xnoremap >  >gv
 "-----------------------------------------------------------------------------
 let mapleader = "\<SPACE>"
 
-
 "-----------------------------------------------------------------------------
 " Disable arrow key, space and ex mode
 "-----------------------------------------------------------------------------
@@ -264,6 +269,18 @@ nnoremap <silent> p p`]
 " Y act like D, etc
 nnoremap Y y$
 
+" toggle relative number
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+    set number
+  else
+    set rnu
+  endif
+endfunc
+
+nmap <leader>n :call NumberToggle()<cr>
+
 " Don't yank to default register when changing something
 nnoremap c "xc
 xnoremap c "xc
@@ -314,16 +331,16 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 let g:neosnippet#snippets_directory = "~/.config/nvim/snippets"
 let g:neosnippet#disable_runtime_snippets = { "_": 1, }
 
+" Lexima
+" Make lexima reloadable
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+
 "deoplete enabled at startup
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
-
-" Lexima
-" Make lexima reloadable
-let g:lexima_no_default_rules = 1
-call lexima#set_default_rules()
 
 imap <expr><CR> <SID>smart_cr()
 imap <expr><TAB> <SID>smart_tab()
@@ -356,3 +373,4 @@ endfunction
 " Setup vim wiki as markdown
 let g:vimwiki_list = [{'path': '~/wiki/',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
+
