@@ -68,9 +68,13 @@ bind -r > swap-window -t +1 # move window one position to the right
 # act like vim
 setw -g mode-keys vi
 bind C-h select-pane -L
+bind h select-pane -L
 bind C-j select-pane -D
+bind j select-pane -D
 bind C-k select-pane -U
+bind k select-pane -U
 bind C-l select-pane -R
+bind l select-pane -R
 bind C-n next-window
 bind q confirm-before -p "kill-window #W? (y/n)" kill-window
 
