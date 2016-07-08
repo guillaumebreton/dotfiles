@@ -42,8 +42,10 @@ Plug 'tpope/vim-surround'
 
 " Neomake
 " Plug 'neomake/neomake'
+" tab replacement
+Plug 'ap/vim-buftabline'
 
-" Misc plugins
+" Wiki to manage notes
 Plug 'vimwiki/vimwiki'
 
 " Colorshemes
@@ -242,10 +244,10 @@ nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>
+nnoremap <C-l> <C-w>l
 
 " Hide highlight
-nnoremap <F3> :noh<CR>
+nnoremap <leader>h :noh<CR>
 
 " n search forward and N back ard
 nnoremap <expr> n  'Nn'[v:searchforward]
@@ -286,7 +288,7 @@ nnoremap c "xc
 xnoremap c "xc
 
 " Quickly edit the configuration file
-nmap <leader>c :tabedit ~/.config/nvim/init.vim<cr>
+nmap <leader>i :e ~/.config/nvim/init.vim<cr>
 nmap <leader>r :source ~/.config/nvim/init.vim<cr>
 augroup reload_vimrc " {
     autocmd!
@@ -295,7 +297,6 @@ augroup END " }
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
-nmap <Leader>t :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<cr>
 
 " Move line back and forth
 nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
@@ -311,6 +312,7 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
+nmap gt :bn<cr>
 
 " in n vim set the cursor depnding on type
 if has('nvim')
@@ -320,8 +322,10 @@ endif
 " Launch fzf
 let g:go_def_mapping_enabled = 0
 let g:fzf_buffers_jump = 1
-
-nnoremap <C-t> :FZF<cr>
+let g:fzf_action = {
+  \ 'ctrl-m': 'e',
+  \ 'ctrl-t': 'e' }
+nnoremap <leader>t :FZF<cr>
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 "-----------------------------------------------------------------------------
@@ -342,19 +346,21 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
 
-imap <expr><CR> <SID>smart_cr()
+" imap <expr><silent><CR> <SID>smart_cr()
+imap <cr> <c-r>=<SID>smart_tab()<cr>
 imap <expr><TAB> <SID>smart_tab()
 smap <expr><CR> <SID>smart_cr()
 smap <expr><CR> <SID>smart_tab()
 
 function! s:smart_cr()
     if pumvisible()
-      call deoplete#close_popup()
       if neosnippet#expandable_or_jumpable()
+      call deoplete#close_popup()
         return "\<Plug>(neosnippet_expand_or_jump)"
       else
         "deoplete#mappings#close_popup()
-        return deoplete#close_popup()."\<C-y>"
+        " return deoplete#close_popup()."\<C-y>"
+        return deoplete#close_popup()
       endif
     endif
     return lexima#expand('<CR>', 'i')
@@ -374,3 +380,19 @@ endfunction
 let g:vimwiki_list = [{'path': '~/wiki/',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
 
+let g:buftabline_show = 1
+let g:buftabline_numbers=2
+let g:buftabline_indicators=1
+let showtabline=0
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
+
+nmap <silent> <leader>c :bd<cr>
