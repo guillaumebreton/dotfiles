@@ -261,7 +261,7 @@ nmap <leader>]  :put =''<cr>
 nmap <leader>f  za
 
 " Enter visual mod
-nmap <Leader><Leader> V
+nmap <silent> <Leader><Leader> :w<cr>
 
 " Move the end of the pasted line
 vnoremap <silent> y y`]
@@ -303,16 +303,8 @@ nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
 nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Remap page up/down to Ctrl-J/K
-nmap <C-J> <C-F>
-nmap <C-K> <C-B>
-
-"multi cursor mapping
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
-nmap gt :bn<cr>
+nmap <leader>j <C-F>
+nmap <leader>k <C-B>
 
 " in n vim set the cursor depnding on type
 if has('nvim')
@@ -346,21 +338,19 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
 
-" imap <expr><silent><CR> <SID>smart_cr()
-imap <cr> <c-r>=<SID>smart_tab()<cr>
+imap <expr><silent><CR> <SID>smart_cr()
 imap <expr><TAB> <SID>smart_tab()
 smap <expr><CR> <SID>smart_cr()
 smap <expr><CR> <SID>smart_tab()
 
 function! s:smart_cr()
     if pumvisible()
-      if neosnippet#expandable_or_jumpable()
       call deoplete#close_popup()
+      if neosnippet#expandable_or_jumpable()
         return "\<Plug>(neosnippet_expand_or_jump)"
       else
         "deoplete#mappings#close_popup()
-        " return deoplete#close_popup()."\<C-y>"
-        return deoplete#close_popup()
+        return deoplete#close_popup()."\<C-y>"
       endif
     endif
     return lexima#expand('<CR>', 'i')
@@ -380,6 +370,8 @@ endfunction
 let g:vimwiki_list = [{'path': '~/wiki/',
                        \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
 
+
+" Buftab line specific setup
 let g:buftabline_show = 1
 let g:buftabline_numbers=2
 let g:buftabline_indicators=1
@@ -395,4 +387,14 @@ nmap <leader>8 <Plug>BufTabLine.Go(8)
 nmap <leader>9 <Plug>BufTabLine.Go(9)
 nmap <leader>0 <Plug>BufTabLine.Go(10)
 
+" buftabline gt behavior
+nmap gt :bn<cr>
+nmap tg :bp<cr>
+
 nmap <silent> <leader>c :bd<cr>
+"multi cursor mapping
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
