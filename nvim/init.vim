@@ -250,9 +250,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>h :noh<CR>
 
 " n search forward and N back ard
-nnoremap <expr> n  'Nn'[v:searchforward]
-nnoremap <expr> N  'nN'[v:searchforward]
-
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 " quickly add blanck line
 nmap <leader>[  :put! =''<cr>
 nmap <leader>]  :put =''<cr>
