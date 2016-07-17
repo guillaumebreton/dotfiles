@@ -323,6 +323,7 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 "-----------------------------------------------------------------------------
 "  IV. Plugins configuration
 "-----------------------------------------------------------------------------
+let g:user_emmet_leader_key='<C-e>'
 " Snippet configuration
 let g:neosnippet#snippets_directory = "~/.config/nvim/snippets"
 let g:neosnippet#disable_runtime_snippets = { "_": 1, }
@@ -338,29 +339,29 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer','tag']
 
-imap <expr><silent><CR> <SID>smart_cr()
 imap <expr><TAB> <SID>smart_tab()
-smap <expr><CR> <SID>smart_cr()
-smap <expr><CR> <SID>smart_tab()
+imap <silent><expr><CR> <SID>smart_cr()
+
 
 function! s:smart_cr()
     if pumvisible()
-      call deoplete#close_popup()
-      if neosnippet#expandable_or_jumpable()
-        return "\<Plug>(neosnippet_expand_or_jump)"
-      else
-        "deoplete#mappings#close_popup()
-        return deoplete#close_popup()."\<C-y>"
+      if neosnippet#expandable()
+         return "\<Plug>(neosnippet_expand)"
       endif
+      return deoplete#smart_close_popup()."\<C-y>"
+    else
+      if neosnippet#expandable()
+         return "\<Plug>(neosnippet_expand)"
+      endif
+      return lexima#expand('<CR>', 'i')
     endif
-    return lexima#expand('<CR>', 'i')
 endfunction
 
 function! s:smart_tab()
     if pumvisible()
       return "\<C-n>"
-    elseif neosnippet#expandable_or_jumpable()
-      return "\<Plug>(neosnippet_expand_or_jump)"
+    elseif neosnippet#jumpable()
+      return "\<Plug>(neosnippet_jump)"
     endif
     return "\<TAB>"
 endfunction
