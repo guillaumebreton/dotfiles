@@ -241,11 +241,6 @@ nnoremap Q <NOP>
 
 " Easy window motion
 nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
 " Hide highlight
 nnoremap <leader>h :noh<CR>
 
@@ -293,10 +288,6 @@ xnoremap c "xc
 " Quickly edit the configuration file
 nmap <leader>i :e ~/.config/nvim/init.vim<cr>
 nmap <leader>r :source ~/.config/nvim/init.vim<cr>
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
@@ -306,8 +297,8 @@ nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
 nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Remap page up/down to Ctrl-J/K
-nmap <leader>j <C-F>
-nmap <leader>k <C-B>
+nmap <C-j> <C-F>
+nmap <C-k> <C-B>
 
 " in n vim set the cursor depnding on type
 if has('nvim')
@@ -320,7 +311,7 @@ let g:fzf_buffers_jump = 1
 let g:fzf_action = {
   \ 'ctrl-m': 'e',
   \ 'ctrl-t': 'e' }
-nnoremap <leader>t :FZF<cr>
+nnoremap <C-t> :FZF -m<cr>
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 "-----------------------------------------------------------------------------
@@ -351,7 +342,7 @@ function! s:smart_cr()
       if neosnippet#expandable()
          return "\<Plug>(neosnippet_expand)"
       endif
-      return deoplete#smart_close_popup()."\<C-y>"
+      return "\<C-y>"
     else
       if neosnippet#expandable()
          return "\<Plug>(neosnippet_expand)"
