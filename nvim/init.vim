@@ -104,12 +104,12 @@ set backspace=2
 set autoindent
 
 " Set the number of column a tab counts for
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=2 " tap appears as 2 space
+set shiftwidth=2 " The size of an indent
+set softtabstop=2 " set the number of col for a tab
+set expandtab " Replace tab by space in insert mode
+set smarttab
 
-" Replace tab by space in insert mode
-set expandtab
 
 " Highlight
 syntax on
