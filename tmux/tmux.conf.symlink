@@ -2,8 +2,8 @@
 # UTF-8
 ############################
 
-set -g utf8
-set -gw utf8
+# set -g utf8
+# set -gw utf8
 
 #set-window-option -g utf8 on
 set-option -g -q mouse on
@@ -98,7 +98,7 @@ bind-key y set-window-option synchronize-panes
 ###########################
 
 # enable UTF-8 support in status bar
-set -g status-utf8 on
+# set -g status-utf8 on
 
 # set refresh interval for status bar
 set -g status-interval 30
