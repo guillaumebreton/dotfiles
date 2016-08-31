@@ -142,6 +142,10 @@ set number
 set relativenumber
 autocmd InsertLeave * :set rnu
 autocmd InsertEnter * :set nornu | :set number
+
+" Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
 "-----------------------------------------------------------------------------
 " Search settings
 "-----------------------------------------------------------------------------
@@ -223,16 +227,6 @@ let mapleader = "\<SPACE>"
 "-----------------------------------------------------------------------------
 " Disable arrow key, space and ex mode
 "-----------------------------------------------------------------------------
-" nnoremap <up> <NOP>
-" nnoremap <down> <NOP>
-" nnoremap <left> <NOP>
-" nnoremap <right> <NOP>
-" nnoremap <bs> <NOP>
-" nnoremap <delete> <NOP>
-" inoremap <up> <NOP>
-" inoremap <down> <NOP>
-" inoremap <left> <NOP>
-" inoremap <right> <NOP>
 nnoremap <Space> <NOP>
 inoremap <F1> <NOP>
 nnoremap <F1> <NOP>
@@ -256,7 +250,7 @@ nmap <leader>[  :put! =''<cr>
 nmap <leader>]  :put =''<cr>
 
 " Quick fold
-nmap <leader>f  za
+nmap <leader>z  za
 
 " Enter visual mod
 nmap <silent> <Leader><Leader> :w<cr>
