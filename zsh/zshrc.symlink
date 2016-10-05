@@ -2,8 +2,8 @@
 # locale settings
 export LC_CTYPE=en_US.UTF-8
 export LANG=en_US.UTF-8
-
 export EDITOR='nvim'
+
 alias vi='nvim'
 
 #shell
@@ -30,29 +30,20 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 bindkey -e
 
-
 #set path
-export WORKSPACE="/Users/yak/Workspace/"
-export MONGO_HOME=$HOME/Toolbox/mongo-2.6.4/bin
-export KAFKA_HOME="/Users/yak/Toolbox/kafka_2.9.1-0.8.2.1"
-
 export PATH="$HOME/bin:$PATH"
-export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin:$GOPATH/bin:$KAFKA_HOME/bin:$PATH
+export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin::$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
-
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/bin:$HOME/Tools/homebrew/bin:$PATH"
 
-
 #rehash every time
 zstyle ":completion:*:commands" rehash 1
-
 #load extra (github etc)
 if [ -f ~/.extras ]; then
   source ~/.extras
@@ -63,8 +54,6 @@ do
   source $file
 done
 eval "$(direnv hook zsh)"
-
-. $HOME/.z.sh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
