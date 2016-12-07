@@ -5,11 +5,13 @@ call plug#begin('~/.config/nvim/plugged')
 
 
 " Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
 " Surround (cs"')
+" ysiw {  wraps word with parenthesis
+" v + S + { add brackets
 Plug 'tpope/vim-surround'
 
 " All usage of multiple cursor
@@ -25,9 +27,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'cohama/lexima.vim'
 Plug 'mattn/emmet-vim'
 
-" Snippets management
-Plug 'Shougo/neosnippet'
-
 " Syntax
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
@@ -38,32 +37,23 @@ Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
+Plug 'junegunn/vim-easy-align'
 
 
 " Plug 'keith/tmux.vim'
 
 " Neomake
 " Plug 'neomake/neomake'
+
 " tab replacement
 Plug 'ap/vim-buftabline'
 
 " Wiki to manage notes
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 " Colorshemes
 Plug 'crusoexia/vim-monokai'
-" Hybrid
-Plug 'w0ng/vim-hybrid'
-" Badwolf
-Plug 'sjl/badwolf'
-" Molokai
-Plug 'tomasr/molokai'
-" Iceberg
-Plug 'cocopon/iceberg.vim'
-" Tender
-Plug 'jacoborus/tender.vim'
-" Base 16
-Plug 'chriskempson/base16-vim'
+Plug 'mhartington/oceanic-next'
 
 
 call plug#end()
@@ -73,6 +63,7 @@ call plug#end()
 "-----------------------------------------------------------------------------
 colorscheme monokai
 set t_Co=256
+
 set laststatus=2
 
 set nocompatible              " be iMproved, required:
@@ -162,12 +153,6 @@ set splitbelow  " Splitting a window will put the new window below the current
 set splitright  " Splitting a window will put the new window right of the current
 
 "-----------------------------------------------------------------------------
-" White characters settings
-"-----------------------------------------------------------------------------
-" set list                                    " Show listchars by default
-" set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,trail:·,nbsp:·
-
-"-----------------------------------------------------------------------------
 " Filetype settings
 "-----------------------------------------------------------------------------
 filetype plugin on
@@ -200,7 +185,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.svg
 set wildignore+=build/*,tmp/*,vendor/cache/*,bin/*
 set wildignore+=.sass-cache/*
 set wildignore+=*/vendor/*
-set wildignore+=*/node_nodules/*
+set wildignore+=*/node_modules/*
 set wildignore+=*/deps/*
 set clipboard=unnamedplus,unnamed
 
@@ -217,26 +202,35 @@ set foldlevel=0         "this is just what i use
 " Selection settings
 " ============================================================
 
-" Don't look selection when shifting
-xnoremap <  <gv
-xnoremap >  >gv
-
 "-----------------------------------------------------------------------------
 "  III. Mappings
 "-----------------------------------------------------------------------------
 let mapleader = "\<SPACE>"
 
-"-----------------------------------------------------------------------------
 " Disable arrow key, space and ex mode
-"-----------------------------------------------------------------------------
 nnoremap <Space> <NOP>
 inoremap <F1> <NOP>
 nnoremap <F1> <NOP>
 nnoremap Q <NOP>
 
+" Fast quit
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>Q :qa!<cr>
+nnoremap <Leader>w :wq<cr>
+
+" Moving lines
+nnoremap <silent> <C-k> :move-2<cr>
+nnoremap <silent> <C-j> :move+<cr>
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
+
+" Don't look selection when shifting
+xnoremap <  <gv
+xnoremap >  >gv
 
 " Easy window motion
 nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
+
 " Hide highlight
 nnoremap <leader>h :noh<CR>
 
@@ -293,41 +287,68 @@ nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
 nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Remap page up/down to Ctrl-J/K
-nmap <C-j> <C-F>
-nmap <C-k> <C-B>
+nmap <leader>j <C-F>
+nmap <leader>k <C-B>
 
 " in n vim set the cursor depnding on type
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 endif
 
-" Launch fzf
-let g:go_def_mapping_enabled = 0
-let g:fzf_buffers_jump = 1
-let g:fzf_action = {
-  \ 'ctrl-m': 'e',
-  \ 'ctrl-t': 'e' }
-nnoremap <C-t> :FZF -m<cr>
+
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 "-----------------------------------------------------------------------------
 "  IV. Plugins configuration
 "-----------------------------------------------------------------------------
-let g:user_emmet_leader_key='<C-e>'
-" Snippet configuration
-let g:neosnippet#snippets_directory = "~/.config/nvim/snippets"
-let g:neosnippet#disable_runtime_snippets = { "_": 1, }
 
+"-----------------------------------------------------------------------------
+" FZF
+"-----------------------------------------------------------------------------
+if executable('fzf')
+  let g:go_def_mapping_enabled = 0
+
+  " jump to the existing buffer if possible
+  let g:fzf_buffers_jump = 1
+
+  " mutiple selection
+  let g:fzf_action = {
+  \ 'ctrl-m': 'e',
+  \ 'ctrl-t': 'e' }
+  nnoremap <C-t> :Files<cr>
+  nmap <silent> <leader>m :History<CR>
+  if has('nvim')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+  endif
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+  " command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
+  let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+endif
+
+"-----------------------------------------------------------------------------
+" EMMET
+"-----------------------------------------------------------------------------
+let g:user_emmet_leader_key='<C-e>'
+
+"-----------------------------------------------------------------------------
+" LEXIMA
+"-----------------------------------------------------------------------------
 " Lexima
 " Make lexima reloadable
 let g:lexima_no_default_rules = 1
 call lexima#set_default_rules()
 
+"-----------------------------------------------------------------------------
+" DEOPLETE
+"-----------------------------------------------------------------------------
 "deoplete enabled at startup
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
-let g:deoplete#sources_ = ['buffer','tag']
+let g:deoplete#sources_ = ['buffer']
 
 imap <expr><TAB> <SID>smart_tab()
 imap <silent><expr><CR> <SID>smart_cr()
@@ -335,14 +356,14 @@ imap <silent><expr><CR> <SID>smart_cr()
 
 function! s:smart_cr()
     if pumvisible()
-      if neosnippet#expandable()
-         return "\<Plug>(neosnippet_expand)"
-      endif
+      " if neosnippet#expandable()
+      "    return "\<Plug>(neosnippet_expand)"
+      " endif
       return "\<C-y>"
     else
-      if neosnippet#expandable()
-         return "\<Plug>(neosnippet_expand)"
-      endif
+      " if neosnippet#expandable()
+      "    return "\<Plug>(neosnippet_expand)"
+      " endif
       return lexima#expand('<CR>', 'i')
     endif
 endfunction
@@ -350,24 +371,23 @@ endfunction
 function! s:smart_tab()
     if pumvisible()
       return "\<C-n>"
-    elseif neosnippet#jumpable()
-      return "\<Plug>(neosnippet_jump)"
+    " elseif neosnippet#jumpable()
+    "   return "\<Plug>(neosnippet_jump)"
     endif
     return "\<TAB>"
 endfunction
 
-
-" Setup vim wiki as markdown
-let g:vimwiki_list = [{'path': '~/wiki/',
-                       \ 'syntax': 'markdown', 'ext': '.md', 'index': 'home'}]
-
-
+"-----------------------------------------------------------------------------
+" buftabline
+"-----------------------------------------------------------------------------
 " Buftab line specific setup
 let g:buftabline_show = 1
 let g:buftabline_numbers=2
 let g:buftabline_indicators=1
 let showtabline=0
 nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>10 <Plug>BufTabLine.Go(10)
+nmap <leader>11 <Plug>BufTabLine.Go(11)
 nmap <leader>2 <Plug>BufTabLine.Go(2)
 nmap <leader>3 <Plug>BufTabLine.Go(3)
 nmap <leader>4 <Plug>BufTabLine.Go(4)
@@ -376,7 +396,6 @@ nmap <leader>6 <Plug>BufTabLine.Go(6)
 nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
 nmap <leader>9 <Plug>BufTabLine.Go(9)
-nmap <leader>0 <Plug>BufTabLine.Go(10)
 
 " buftabline gt behavior
 nmap gt :bn<cr>
@@ -388,4 +407,14 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+"-----------------------------------------------------------------------------
+" EasyAlign settings
+"-----------------------------------------------------------------------------
+" easy align
+" " Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
