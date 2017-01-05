@@ -39,6 +39,10 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 
+" Distraction free editing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 
 " Plug 'keith/tmux.vim'
 
@@ -63,11 +67,11 @@ call plug#end()
 "-----------------------------------------------------------------------------
 colorscheme monokai
 set t_Co=256
-
 set laststatus=2
 
 set nocompatible              " be iMproved, required:
 filetype off                  " required
+
 
 
 " Mouse control
@@ -133,8 +137,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 " enable relative number
 set number
 set relativenumber
-autocmd InsertLeave * :set rnu
-autocmd InsertEnter * :set nornu | :set number
 
 " Don't yank to default register when changing something
 nnoremap c "xc
@@ -151,12 +153,12 @@ set incsearch   " Highlight dynamically as pattern is typed
 "-----------------------------------------------------------------------------
 set splitbelow  " Splitting a window will put the new window below the current
 set splitright  " Splitting a window will put the new window right of the current
-
 "-----------------------------------------------------------------------------
 " Filetype settings
 "-----------------------------------------------------------------------------
 filetype plugin on
 filetype indent on
+
 
 "-----------------------------------------------------------------------------
 " Neovim specific settings
@@ -176,6 +178,9 @@ if has("autocmd")
 
   " add rabl as ruby files
   au BufNewFile,BufRead *.rabl set ft=ruby
+
+  autocmd InsertLeave * :set rnu
+  autocmd InsertEnter * :set nornu | :set number
 endif
 
 "Ignore a lot of stuff
@@ -290,17 +295,50 @@ nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
 nmap <leader>j <C-F>
 nmap <leader>k <C-B>
 
+" Start distraction free editing
+nnoremap <leader>g :Goyo<CR>
+
 " in n vim set the cursor depnding on type
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 endif
-
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 "-----------------------------------------------------------------------------
 "  IV. Plugins configuration
 "-----------------------------------------------------------------------------
+"
+"-----------------------------------------------------------------------------
+" GOYO
+"-----------------------------------------------------------------------------
+"
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  autocmd! InsertEnter  *
+  autocmd! InsertLeave  *
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  autocmd InsertLeave * :set rnu
+  autocmd InsertEnter * :set nornu | :set number
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 "-----------------------------------------------------------------------------
 " FZF
@@ -386,8 +424,8 @@ let g:buftabline_numbers=2
 let g:buftabline_indicators=1
 let showtabline=0
 nmap <leader>1 <Plug>BufTabLine.Go(1)
-nmap <leader>10 <Plug>BufTabLine.Go(10)
-nmap <leader>11 <Plug>BufTabLine.Go(11)
+nmap <leader>! <Plug>BufTabLine.Go(10)
+nmap <leader>@ <Plug>BufTabLine.Go(11)
 nmap <leader>2 <Plug>BufTabLine.Go(2)
 nmap <leader>3 <Plug>BufTabLine.Go(3)
 nmap <leader>4 <Plug>BufTabLine.Go(4)
