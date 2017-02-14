@@ -21,3 +21,5 @@ dl() {docker logs $1}
 dlf() {docker logs -f $1}
 alias dps="d ps"
 alias dpsa="d pas -a"
+
+alias k="kubectl"

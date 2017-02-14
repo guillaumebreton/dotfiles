@@ -1,4 +1,5 @@
 "-----------------------------------------------------------------------------
+"
 "  I. Plugins
 "-----------------------------------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
@@ -43,7 +44,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-
+Plug 'editorconfig/editorconfig-vim'
 " Plug 'keith/tmux.vim'
 
 " Neomake
