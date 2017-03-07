@@ -35,7 +35,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
@@ -45,6 +45,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 Plug 'editorconfig/editorconfig-vim'
+Plug 'ekalinin/Dockerfile.vim'
 " Plug 'keith/tmux.vim'
 
 " Neomake
@@ -60,6 +61,7 @@ Plug 'ap/vim-buftabline'
 Plug 'crusoexia/vim-monokai'
 Plug 'mhartington/oceanic-next'
 
+Plug 'scrooloose/nerdtree'
 
 call plug#end()
 
@@ -133,7 +135,7 @@ set noerrorbells
 set autoread
 
 " Delete all whitespace in end of line
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 
 " enable relative number
 set number
@@ -288,13 +290,9 @@ nmap <leader>r :source ~/.config/nvim/init.vim<cr>
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
 
-" Move line back and forth
-nmap <leader>e  :<c-u>execute 'move -1-'. v:count1<cr>
-nmap <leader>e  :<c-u>execute 'move +'. v:count1<cr>
-
 " Remap page up/down to Ctrl-J/K
-nmap <leader>j <C-F>
 nmap <leader>k <C-B>
+nmap <leader>j <C-F>
 
 " Start distraction free editing
 nnoremap <leader>g :Goyo<CR>
@@ -341,6 +339,10 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+"-----------------------------------------------------------------------------
+" Nerd tree
+"-----------------------------------------------------------------------------
+nmap <leader>n :NERDTreeToggle<CR>
 "-----------------------------------------------------------------------------
 " FZF
 "-----------------------------------------------------------------------------

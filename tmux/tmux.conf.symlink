@@ -1,7 +1,10 @@
 ############################
 # UTF-8
 ############################
+set prefix C-a
 
+unbind-key C-b
+bind-key C-a send-prefix
 # set -g utf8
 # set -gw utf8
 
@@ -25,7 +28,7 @@ set -g default-terminal "screen-256color"
 set -g history-limit 5000
 
 # # use vim key bindings
-# setw -g mode-keys vi
+setw -g mode-keys vi
 
 bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
