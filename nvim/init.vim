@@ -227,17 +227,18 @@ nnoremap <Leader>Q :qa!<cr>
 nnoremap <Leader>w :wq<cr>
 
 " Moving lines
-nnoremap <silent> <C-k> :move-2<cr>
-nnoremap <silent> <C-j> :move+<cr>
-xnoremap <silent> <C-k> :move-2<cr>gv
-xnoremap <silent> <C-j> :move'>+<cr>gv
+nnoremap <silent> K :move-2<cr>
+nnoremap <silent> J :move+<cr>
+xnoremap <silent> K :move-2<cr>gv
+xnoremap <silent> J :move'>+<cr>gv
+
+" Moving page
+map <C-k> <C-b>
+map <C-j> <C-f>
 
 " Don't look selection when shifting
 xnoremap <  <gv
 xnoremap >  >gv
-
-" Easy window motion
-nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
 
 " Hide highlight
 nnoremap <leader>h :noh<CR>
@@ -441,6 +442,9 @@ nmap <leader>9 <Plug>BufTabLine.Go(9)
 " buftabline gt behavior
 nmap gt :bn<cr>
 nmap tg :bp<cr>
+
+" Easy window motion
+nmap <silent> <C-w> :bn<CR>
 
 nmap <silent> <leader>c :bd<cr>
 "multi cursor mapping
