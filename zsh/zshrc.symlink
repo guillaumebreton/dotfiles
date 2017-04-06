@@ -55,7 +55,7 @@ do
 done
 eval "$(direnv hook zsh)"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {

@@ -1,10 +1,6 @@
 ############################
 # UTF-8
 ############################
-# set -g utf8
-# set -gw utf8
-
-#set-window-option -g utf8 on
 set-option -g -q mouse on
 set -g default-terminal "screen-256color"
 
@@ -18,7 +14,7 @@ bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M"
 ###########################
 
 # use 256 term for pretty colors
-set -g default-terminal "screen-256color"
+# set -g default-terminal "screen-256color"
 
 # # increase scroll-back history
 set -g history-limit 5000
@@ -63,14 +59,13 @@ set-option -g default-command "reattach-to-user-namespace -l zsh"
 # move window
 bind -r < swap-window -t -1 # move wind
 setw -g mode-keys vi
+bind-key -t vi-copy 'j' page-up
+bind-key -t vi-copy 'k' page-down
 bind C-h select-pane -L
-bind h select-pane -L
 bind C-j select-pane -D
-bind j select-pane -D
 bind C-k select-pane -U
-bind k select-pane -U
 bind C-l select-pane -R
-bind l select-pane -R
+# bind k # select-pane -U
 bind C-n next-window
 bind q confirm-before -p "kill-window #W? (y/n)" kill-window
 

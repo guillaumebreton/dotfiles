@@ -11,6 +11,7 @@
 	editor = nvim
 [push]
 	default = current
+	followTags = true
 [branch]
 	autosetuprebase = always
 [pull]
@@ -22,3 +23,5 @@
 	autosquash = true
 [commit]
 	gpgsign = true
+[credential]
+	helper = osxkeychain
