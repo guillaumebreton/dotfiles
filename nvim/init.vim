@@ -75,8 +75,8 @@ set laststatus=2
 set nocompatible              " be iMproved, required:
 filetype off                  " required
 
-
-
+set list!
+set listchars=tab:▶\ ,trail:·,extends:\#,nbsp:.
 " Mouse control
 set mouse=a
 set ruler

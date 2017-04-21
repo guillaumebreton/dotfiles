@@ -15,14 +15,14 @@ data.location=~/.task
 include ~/.task.theme
 
 
-report.ls.sort=status-,start-,project+,priority-,due+
+report.ls.sort=status-,start-,project+,urgency-,estimate-,due+
 report.ls.filter=status:pending and due:today or status:pending and +OVERDUE or status:pending and sched <= today or status:completed and sched:today or status:completed and end:today
-report.ls.columns=id,project,priority,tags,description
-report.ls.labels= ID,Proj,Pri,Tags,Description
+report.ls.columns=id,project,priority,tags,estimate,description
+report.ls.labels= ID,Proj,Pri,Tags,Est,Description
 
-report.list.sort=project+,due+,scheduled+,priority-,start-
-report.list.columns=id,project,priority,tags,due,scheduled,description
-report.list.labels= ID,Proj,Pri,Tags,Due,Sched,Description
+report.list.sort=project+,due+,scheduled+,priority-,start-,estimate+
+report.list.columns=id,project,priority,tags,estimate,due,scheduled,description
+report.list.labels= ID,Proj,Pri,Tags,Est,Due,Sched,Description
 report.next.filter=status:pending and sched:
 report.next.columns=id,project,priority,scheduled,description
 report.next.labels= ID,Proj,Pri,Sched,Description
@@ -38,3 +38,5 @@ taskd.key=\/Users\/gbreton\/.task\/guillaume_breton.key.pem
 taskd.ca=\/Users\/gbreton\/.task\/ca.cert.pem
 taskd.server=92.222.90.203:53589
 taskd.credentials=Public\/guillaume breton\/a617e4ac-3f61-4689-9b64-16bbe691dad0
+uda.estimate.type=numeric
+uda.estimate.label=Est

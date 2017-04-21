@@ -30,19 +30,23 @@ color.calendar.weekend=on color235
 color.calendar.holiday=color0 on color11
 color.calendar.weeknumber=rgb013
 
-color.recurring=blue
-color.overdue=red
+color.recurring=
+color.overdue=white on red
 color.completed=rgb111
 color.due.today=
 color.due=
 color.active=bold green
 color.tagged=
-color.tag.next=yellow
-color.blocked=white
-color.blocking=yellow on black
+color.tag.next=blue
+color.blocked=
+color.blocking=
 color.project.none=
 color.tag.none=
 color.alternate=white on rgb000
 color.scheduled=
 color.label=
+
+color.uda.priority.H=color1
+color.uda.priority.L=white
+color.uda.priority.M=yellow
 
