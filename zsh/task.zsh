@@ -9,13 +9,16 @@ te(){
 }
 
 td(){
-  task $1 done
+  task $1 mod sched:today
 }
 
 ts(){
   task $1 start
 }
 
+tt(){
+  task $1 mod sched:$2
+}
 tad(){
   task add $@ sched:today
 }
@@ -23,3 +26,4 @@ tad(){
 tp(){
   task $@ mod due: sched:tomorrow
 }
+
