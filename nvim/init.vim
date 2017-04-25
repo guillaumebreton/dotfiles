@@ -47,15 +47,14 @@ Plug 'junegunn/limelight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 " Plug 'keith/tmux.vim'
-
+Plug 'dag/vim-fish'
 " Neomake
 " Plug 'neomake/neomake'
 
 " tab replacement
 Plug 'ap/vim-buftabline'
 
-" Wiki to manage notes
-" Plug 'vimwiki/vimwiki'
+"Fish configuration highlight plugin
 
 " Colorshemes
 Plug 'crusoexia/vim-monokai'

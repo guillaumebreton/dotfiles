@@ -24,15 +24,15 @@ link_replace() {
 }
 
 
-echo "+ Add prezto"
-if [ ! -d "$HOME/.zprezto" ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
-  setopt EXTENDED_GLOB
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
-  chsh -s /bin/zsh
-fi
+# echo "+ Add prezto"
+# if [ ! -d "$HOME/.zprezto" ]; then
+#   git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
+#   setopt EXTENDED_GLOB
+#   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+#     ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+#   done
+#   chsh -s /bin/zsh
+# fi
 
 echo "+ Add fzf"
 if [ ! -d "$HOME/.fzf" ]; then
@@ -52,6 +52,12 @@ link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim/snippets"
 
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"
+
+echo "+ Add fish configuration"
+if [ ! -d "$HOME/.config/nvim" ]; then
+    mkdir $HOME/.config/fish/
+fi
+link_replace "$pwd/fish/config.fish" "$HOME/.config/fish/config.fish"
 
 #copy all symplink
 echo "+ Add symlinks"
