@@ -12,13 +12,10 @@ function fish_prompt
   if not set -q -g __fish_git_functions_defined
       set -g __fish_git_functions_defined
       function _git_branch_name
-          echo "branch_name"
           echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
       end
       function _is_git_dirty
-          echo "is_dirty"
           echo (git status -s --ignore-submodules=dirty ^/dev/null)
-          echo $status
       end
   end
   # if git branch
@@ -72,14 +69,16 @@ function fish_mode_prompt --description 'Displays the current mode'
 end
 
 set -g fish_key_bindings fish_vi_key_bindings
-
+set -g FZF_TMUX_HEIGHT 10%
+set -g FZF_CTRL_R_OPTS "-e"
 
 # General alias
 alias ls='ls -lhG'
 alias reload='source ~/.config/fish/config.fish'
 
 # Alias vi
-set EDITOR nvim
+set --export EDITOR nvim
+set --export GIT_EDITOR nvim
 alias vi='nvim'
 alias m='make'
 
