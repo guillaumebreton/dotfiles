@@ -94,6 +94,9 @@ alias tl='task list'
 function te --description "edit a task"
     task $argv[1] edit
 end
+function td --description "Set a task as done" -a 'taskid'
+    task $taskid done
+end
 function tt --description "schedule a task today"
     task $argv[1] mod sched:today
 end
@@ -142,7 +145,51 @@ alias gcapf="gaa ;and gca ;and gpf"
 alias gcp="gaa ;and gc ;and gpf"
 
 
+#----------------------------------------------------------------------
+# DOCKER
+#----------------------------------------------------------------------
 
+alias dm="docker-machine"
+alias dc="docker-compose"
+alias d="docker"
+alias dps="d ps"
+alias dpsa="d pas -a"
+alias k="kubectl"
+
+function dip --description "Returns the docker IP" -a "container"
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container
+end
+
+function drme
+    docker rm (docker ps -qa --filter 'status=exited')
+end
+
+function drm
+    docker rm (docker ps -qa)
+end
+
+function drti -d "Docker run with ti option" -a "container"
+    docker run -ti $container sh
+end
+
+function deti -d "Docker exec with ti option"  -a "container"
+    docker exec -ti $container sh
+end
+
+function dri -d "Delete useless images"
+    docker rmi -f (docker images -q --filter "dangling=true")
+end
+
+function dl -d "Returns the log of container" -a "container"
+    docker logs $container
+end
+function dl -d "Returns the log of container with follow" -a "container"
+    docker logs -f $container
+end
+
+#----------------------------------------------------------------------
+# MISC
+#----------------------------------------------------------------------
 function posix-source
     for i in (cat $argv)
         set arr (echo $i |tr = \n)

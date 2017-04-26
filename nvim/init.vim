@@ -365,7 +365,7 @@ if executable('fzf')
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
   " command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
   let g:fzf_files_options =
-  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  \ '--preview "highlight -O ansi {} ;or cat {} 2> /dev/null | head -'.&lines.'"'
 
 endif
 
