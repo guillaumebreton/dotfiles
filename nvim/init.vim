@@ -75,7 +75,7 @@ set nocompatible              " be iMproved, required:
 filetype off                  " required
 
 set list!
-set listchars=tab:▶\ ,trail:·,extends:\#,nbsp:.
+set listchars=tab:→\ ,trail:·,extends:\#,nbsp:.
 " Mouse control
 set mouse=a
 set ruler

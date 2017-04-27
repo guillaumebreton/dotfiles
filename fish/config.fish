@@ -190,12 +190,31 @@ end
 #----------------------------------------------------------------------
 # MISC
 #----------------------------------------------------------------------
+alias rm="trash"
 function posix-source
     for i in (cat $argv)
         set arr (echo $i |tr = \n)
         set -gx $arr[1] $arr[2]
     end
 end
+function prepend_sudo_command -d "Prepend a command with first param" -a "prepend"
+
+  set -l cmd (commandline)
+  if test -z "$cmd"
+    commandline -r $history[1]
+  end
+
+  set -l old_cursor (commandline -C)
+  commandline -C 0
+  if [ (commandline -t) != "sudo" ]
+      commandline -i "sudo "
+      commandline -C (math $old_cursor + (echo "sudo"| wc -c))
+  else
+      commandline -C (math $old_cursor)
+  end
+end
+
+bind -M insert \cs prepend_sudo_command
 
 #source extras local definition
 if test -e ~/.config/fish/extras.fish
