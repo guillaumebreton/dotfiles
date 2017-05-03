@@ -15,7 +15,7 @@ data.location=~/.task
 include ~/.task.theme
 
 
-report.ls.sort=status-,start-,project+,urgency-,estimate-,due+
+report.ls.sort=status-,start-,priority-,project+,estimate-,due+
 report.ls.filter=status:pending and due:today or status:pending and +OVERDUE or status:pending and sched <= today or status:completed and sched:today or status:completed and end:today
 report.ls.columns=id,project,priority,tags,estimate,description
 report.ls.labels= ID,Proj,Pri,Tags,Est,Description

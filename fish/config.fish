@@ -75,6 +75,15 @@ set -g FZF_CTRL_R_OPTS "-e"
 # General alias
 alias ls='ls -lhG'
 alias reload='source ~/.config/fish/config.fish'
+# Navigation
+function ..    ; cd .. ; end
+function ...   ; cd ../.. ; end
+function ....  ; cd ../../.. ; end
+function ..... ; cd ../../../.. ; end
+
+# Utilities
+function g        ; git $argv ; end
+function grep     ; command grep --color=auto $argv ; end
 
 # Alias vi
 set --export EDITOR nvim
