@@ -22,7 +22,8 @@ report.ls.labels= ID,Seg,Proj,Est,Description
 
 report.tomorrow.columns=id,segment,project,estimate,description
 report.tomorrow.filter=status:pending and due:tomorrow or status:pending and sched:tomorrow or status:pending and +OVERDUE
-report.tomorrow.sort=scheduled+
+report.tomorrow.sort=status-,segment-,start-,priority-,project+,estimate-,due+
+report.tomorrow.labels= ID,Seg,Proj,Est,Description
 
 report.list.sort=project+,due+,scheduled+,priority-,start-,estimate+
 report.list.columns=id,project,priority,tags,estimate,due,scheduled,description
