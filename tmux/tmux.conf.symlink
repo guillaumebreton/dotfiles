@@ -22,13 +22,6 @@ set -g history-limit 5000
 # # use vim key bindings
 # setw -g mode-keys vi
 
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-
-# # after copying to a tmux buffer, hit y again to copy to clipboard
-# # bind y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-unbind -t vi-copy Enter
-bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 
 # decrease command delay (increases vim responsiveness)
 set -sg escape-time 1

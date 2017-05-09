@@ -15,10 +15,10 @@ data.location=~/.task
 include ~/.task.theme
 
 
-report.ls.sort=status-,start-,priority-,project+,estimate-,due+
+report.ls.sort=status-,segment-,start-,priority-,project+,estimate-,due+
 report.ls.filter=status:pending and due:today or status:pending and +OVERDUE or status:pending and sched <= today or status:completed and sched:today or status:completed and end:today
-report.ls.columns=id,project,priority,tags,estimate,description
-report.ls.labels= ID,Proj,Pri,Tags,Est,Description
+report.ls.columns=id,segment,project,estimate,description
+report.ls.labels= ID,Seg,Proj,Est,Description
 
 report.list.sort=project+,due+,scheduled+,priority-,start-,estimate+
 report.list.columns=id,project,priority,tags,estimate,due,scheduled,description
@@ -40,3 +40,7 @@ taskd.server=92.222.90.203:53589
 taskd.credentials=Public\/guillaume breton\/a617e4ac-3f61-4689-9b64-16bbe691dad0
 uda.estimate.type=numeric
 uda.estimate.label=Est
+
+uda.segment.type=string
+uda.segment.label=Seg
+uda.segment.values=M,A,E,N

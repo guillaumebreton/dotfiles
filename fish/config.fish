@@ -97,30 +97,78 @@ eval (direnv hook fish)
 # Alias for taskwarrior
 alias t='task ls'
 alias tw='task week'
-alias tn='task next'
-alias tl='task list'
 
-function te --description "edit a task"
-    task $argv[1] edit
+function tn -d "Add tag +next to the task" -a 'taskid'
+    if set -q argv[1]
+        task $argv[1] mod +next
+    else
+        echo "No task specified"
+    end
+end
+
+function tl -d "Set task priority to L" -a 'taskid'
+    if set -q argv[1]
+        task $argv[1] mod prio:L
+    else
+        echo "No task specified"
+    end
+end
+function tm -d "Set task priority to M" -a 'taskid'
+    if set -q argv[1]
+        task $argv[1] mod prio:M
+    else
+        echo "No task specified"
+    end
+end
+function th -d "Set task priority to H" -a 'taskid'
+    if set -q argv[1]
+        task $argv[1] mod prio:H
+    else
+        echo "No task specified"
+    end
+end
+
+function te --description "edit a task" -a "taskid"
+    if set -q argv[1]
+        task $taskid edit
+    else
+        echo "No task specified"
+    end
 end
 function td --description "Set a task as done" -a 'taskid'
-    task $taskid done
+    if set -q argv[1]
+        task $taskid done
+    else
+        echo "No task specified"
+    end
 end
 function tt --description "schedule a task today"
-    task $argv[1] mod sched:today
+    if set -q argv[1]
+        task $argv[1] mod sched:today
+    else
+        echo "No task specified"
+    end
 end
 
 function ts --description "start a task"
-    task $argv[1] start
+    if set -q argv[1]
+        task $argv[1] start
+    else
+        echo "No task specified"
+    end
 end
 
 
 function tad --description "add a task and schedule it today"
-  task add $argv sched:today
+    if set -q argv[1]
+      task add $argv sched:today
+    else
+      echo "No task specified"
+    end
 end
 
-function tp --description "Postpone a task" --argument-names 'taskid' 'date'
-    if [ $date != "" ]
+function tp --description "Postpone a task" --argument-names 'taskid'
+    if set -q argv[2]
       task $argv[1] mod due: sched:$argv[2]
     else
       task $argv[1] mod due: sched:tomorrow
@@ -231,4 +279,4 @@ if test -e ~/.config/fish/extras.fish
 end
 
 source /Users/guillaume/.config/fish/functions/fish_user_key_bindings.fish
-
+set -gx PATH /Users/guillaume/.cargo/bin $PATH
