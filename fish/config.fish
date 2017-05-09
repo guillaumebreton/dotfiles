@@ -97,32 +97,11 @@ eval (direnv hook fish)
 # Alias for taskwarrior
 alias t='task ls'
 alias tw='task week'
+alias tm='task tomorrow'
 
 function tn -d "Add tag +next to the task" -a 'taskid'
     if set -q argv[1]
         task $argv[1] mod +next
-    else
-        echo "No task specified"
-    end
-end
-
-function tl -d "Set task priority to L" -a 'taskid'
-    if set -q argv[1]
-        task $argv[1] mod prio:L
-    else
-        echo "No task specified"
-    end
-end
-function tm -d "Set task priority to M" -a 'taskid'
-    if set -q argv[1]
-        task $argv[1] mod prio:M
-    else
-        echo "No task specified"
-    end
-end
-function th -d "Set task priority to H" -a 'taskid'
-    if set -q argv[1]
-        task $argv[1] mod prio:H
     else
         echo "No task specified"
     end
