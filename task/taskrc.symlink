@@ -48,4 +48,4 @@ uda.estimate.label=Est
 
 uda.segment.type=string
 uda.segment.label=Seg
-uda.segment.values=M,A,E
+uda.segment.values=M,A,N
