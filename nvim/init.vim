@@ -35,7 +35,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
@@ -48,6 +48,7 @@ Plug 'dag/vim-fish'
 
 " Neomake
 " Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'
 
 " tab replacement
 Plug 'ap/vim-buftabline'
@@ -181,6 +182,10 @@ if has("autocmd")
 
   autocmd InsertLeave * :set rnu
   autocmd InsertEnter * :set nornu | :set number
+  augroup fmt
+      autocmd!
+      autocmd BufWritePre * Neoformat
+  augroup END
 endif
 
 "Ignore a lot of stuff
@@ -423,3 +428,9 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+
+"-----------------------------------------------------------------------------
+" Neoformat
+"-----------------------------------------------------------------------------
+let g:neoformat_enabled_js = ['jq']
+let g:neoformat_enabled_go = ['gofmt']
