@@ -40,14 +40,12 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 
-" Distraction free editing
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 " Plug 'keith/tmux.vim'
 Plug 'dag/vim-fish'
+
 " Neomake
 " Plug 'neomake/neomake'
 
@@ -249,6 +247,7 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
 " quickly add blanck line
 nmap <leader>[  :put! =''<cr>
 nmap <leader>]  :put =''<cr>
@@ -256,7 +255,7 @@ nmap <leader>]  :put =''<cr>
 " Quick fold
 nmap <leader>z  za
 
-" Enter visual mod
+" Save
 nmap <silent> <Leader><Leader> :w<cr>
 
 " Move the end of the pasted line
@@ -290,13 +289,6 @@ nmap <leader>r :source ~/.config/nvim/init.vim<cr>
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
 
-" Remap page up/down to Ctrl-J/K
-nmap <leader>k <C-B>
-nmap <leader>j <C-F>
-
-" Start distraction free editing
-nnoremap <leader>g :Goyo<CR>
-
 " in n vim set the cursor depnding on type
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
@@ -308,37 +300,6 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 "  IV. Plugins configuration
 "-----------------------------------------------------------------------------
 "
-"-----------------------------------------------------------------------------
-" GOYO
-"-----------------------------------------------------------------------------
-"
-function! s:goyo_enter()
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  Limelight
-  autocmd! InsertEnter  *
-  autocmd! InsertLeave  *
-  " ...
-endfunction
-
-function! s:goyo_leave()
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set showmode
-  set showcmd
-  set scrolloff=5
-  Limelight!
-  autocmd InsertLeave * :set rnu
-  autocmd InsertEnter * :set nornu | :set number
-  " ...
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
 "-----------------------------------------------------------------------------
 " Nerd tree
 "-----------------------------------------------------------------------------
