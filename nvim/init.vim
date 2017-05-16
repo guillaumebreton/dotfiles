@@ -182,10 +182,6 @@ if has("autocmd")
 
   autocmd InsertLeave * :set rnu
   autocmd InsertEnter * :set nornu | :set number
-  augroup fmt
-      autocmd!
-      autocmd BufWritePre * Neoformat
-  augroup END
 endif
 
 "Ignore a lot of stuff
@@ -434,3 +430,12 @@ nmap ga <Plug>(EasyAlign)
 "-----------------------------------------------------------------------------
 let g:neoformat_enabled_js = ['jq']
 let g:neoformat_enabled_go = ['gofmt']
+if has("autocmd")
+  filetype on
+
+  augroup fmt
+      autocmd!
+      autocmd BufWritePre *.json Neoformat
+      autocmd BufWritePre *.go Neoformat
+  augroup END
+endif

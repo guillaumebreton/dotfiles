@@ -8,42 +8,53 @@ set gray (set_color -o black)
 
 function fish_prompt
 
-  set last_status $status
-  if not set -q -g __fish_git_functions_defined
-      set -g __fish_git_functions_defined
-      function _git_branch_name
-          echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
-      end
-      function _is_git_dirty
-          echo (git status -s --ignore-submodules=dirty ^/dev/null)
-      end
-  end
-  # if git branch
-  if [ (_git_branch_name) ]
-      set git_info ""(_git_branch_name)""
+    set last_status $status
+    if not set -q -g __fish_git_functions_defined
+        set -g __fish_git_functions_defined
+        function _git_branch_name
+            echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+        end
+        function _is_git_dirty
+            echo (git status -s --ignore-submodules=dirty ^/dev/null)
+        end
+    end
+    # if git branch
+    if [ (_git_branch_name) ]
+        set git_info ""(_git_branch_name)""
 
-      # if dirty
-      if [ (_is_git_dirty) ]
-          set -l dirty "$red ●"
-          set git_info "$git_info$dirty"
-      else
-          set -l dirty "$green ●"
-          set git_info "$git_info$dirty"
-      end
-  end
+        # if dirty
+        if [ (_is_git_dirty) ]
+            set -l dirty "$red ●"
+            set git_info "$git_info$dirty"
+        else
+            set -l dirty "$green ●"
+            set git_info "$git_info$dirty"
+        end
+    end
 
-  set_color blue
-  printf '%s' (basename (prompt_pwd))
-  if [ $last_status -ne 0 ]
-    set_color red
-  else
-    set_color green
-  end
-  printf ' ⌁ '
-  set_color normal
-  printf '%s ' $git_info
-
-  set_color normal
+    set_color blue
+    printf '%s' (basename (prompt_pwd))
+    if [ $last_status -ne 0 ]
+        set_color red
+    else
+        set_color green
+    end
+    printf ' ⌁ '
+    if set -q ENV
+        if test $ENV = "production"
+            set_color red
+            printf 'production'
+            set_color green
+            printf ' ⌁ '
+        else if test $ENV = 'staging'
+            set_color green
+            printf 'staging'
+            printf ' ⌁ '
+        end
+    end
+    set_color normal
+    printf '%s ' $git_info
+    set_color normal
 end
 
 function fish_mode_prompt --description 'Displays the current mode'
@@ -76,14 +87,26 @@ set -g FZF_CTRL_R_OPTS "-e"
 alias ls='ls -lhG'
 alias reload='source ~/.config/fish/config.fish'
 # Navigation
-function ..    ; cd .. ; end
-function ...   ; cd ../.. ; end
-function ....  ; cd ../../.. ; end
-function ..... ; cd ../../../.. ; end
+function ..
+    cd ..
+end
+function ...
+    cd ../..
+end
+function ....
+    cd ../../..
+end
+function .....
+    cd ../../../..
+end
 
 # Utilities
-function g        ; git $argv ; end
-function grep     ; command grep --color=auto $argv ; end
+function g
+    git $argv
+end
+function grep
+    command grep --color=auto $argv
+end
 
 # Alias vi
 set --export EDITOR nvim
@@ -140,17 +163,17 @@ end
 
 function tad --description "add a task and schedule it today"
     if set -q argv[1]
-      task add $argv sched:today
+        task add $argv sched:today
     else
-      echo "No task specified"
+        echo "No task specified"
     end
 end
 
 function tp --description "Postpone a task" --argument-names 'taskid'
     if set -q argv[2]
-      task $argv[1] mod due: sched:$argv[2]
+        task $argv[1] mod due: sched:$argv[2]
     else
-      task $argv[1] mod due: sched:tomorrow
+        task $argv[1] mod due: sched:tomorrow
     end
 end
 
@@ -193,7 +216,7 @@ alias dpsa="d pas -a"
 alias k="kubectl"
 
 function dip --description "Returns the docker IP" -a "container"
-  docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container
+    docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container
 end
 
 function drme
@@ -208,7 +231,7 @@ function drti -d "Docker run with ti option" -a "container"
     docker run -ti $container sh
 end
 
-function deti -d "Docker exec with ti option"  -a "container"
+function deti -d "Docker exec with ti option" -a "container"
     docker exec -ti $container sh
 end
 
@@ -235,19 +258,19 @@ function posix-source
 end
 function prepend_sudo_command -d "Prepend a command with first param" -a "prepend"
 
-  set -l cmd (commandline)
-  if test -z "$cmd"
-    commandline -r $history[1]
-  end
+    set -l cmd (commandline)
+    if test -z "$cmd"
+        commandline -r $history[1]
+    end
 
-  set -l old_cursor (commandline -C)
-  commandline -C 0
-  if [ (commandline -t) != "sudo" ]
-      commandline -i "sudo "
-      commandline -C (math $old_cursor + (echo "sudo"| wc -c))
-  else
-      commandline -C (math $old_cursor)
-  end
+    set -l old_cursor (commandline -C)
+    commandline -C 0
+    if [ (commandline -t) != "sudo" ]
+        commandline -i "sudo "
+        commandline -C (math $old_cursor + (echo "sudo"| wc -c))
+    else
+        commandline -C (math $old_cursor)
+    end
 end
 
 bind -M insert \cs prepend_sudo_command
