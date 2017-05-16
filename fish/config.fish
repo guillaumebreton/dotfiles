@@ -41,7 +41,7 @@ function fish_prompt
     end
     printf ' ⌁ '
     if set -q ENV
-        if test $ENV = "production"
+        if test "$ENV" = "production"
             set_color red
             printf 'production'
             set_color green
