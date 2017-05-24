@@ -5,8 +5,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 
-" Fuzzy finder
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
@@ -15,14 +13,14 @@ Plug 'tpope/vim-commentary'
 " v + S + { add brackets
 Plug 'tpope/vim-surround'
 
-" All usage of multiple cursor
-Plug 'terryma/vim-multiple-cursors'
-
 " Autocomplete
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+
+
+Plug 'brooth/far.vim'
 
 " Auto pair quote brakets etc
 Plug 'cohama/lexima.vim'
@@ -35,12 +33,10 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-
-
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 " Plug 'keith/tmux.vim'
@@ -51,15 +47,19 @@ Plug 'dag/vim-fish'
 Plug 'sbdchd/neoformat'
 
 " tab replacement
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 
 "Fish configuration highlight plugin
 
+" Fuzzy finder
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Colorshemes
 Plug 'crusoexia/vim-monokai'
 Plug 'mhartington/oceanic-next'
+Plug 'dracula/vim'
+Plug 'jacoborus/tender.vim'
 
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 
 call plug#end()
 
@@ -230,9 +230,9 @@ nnoremap <silent> J :move+<cr>
 xnoremap <silent> K :move-2<cr>gv
 xnoremap <silent> J :move'>+<cr>gv
 
-" Moving page
-map <C-k> <C-b>
-map <C-j> <C-f>
+" Moving faster
+map <C-j> 10j
+map <C-k> 10k
 
 " Don't look selection when shifting
 xnoremap <  <gv
@@ -304,12 +304,20 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 "-----------------------------------------------------------------------------
 " Nerd tree
 "-----------------------------------------------------------------------------
-nmap <leader>n :NERDTreeToggle<CR>
+nmap <C-N> :NERDTreeToggle<CR>
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize = 40
+let g:NERDTreeCascadeOpenSingleChildDir = 1
+let g:NERDTreeCascadeSingleChildDir = 0
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeRespectWildIgnore = 0
+let g:NERDTreeAutoDeleteBuffer = 0
+" let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeHijackNetrw = 1
 "-----------------------------------------------------------------------------
 " FZF
 "-----------------------------------------------------------------------------
 if executable('fzf')
-  let g:go_def_mapping_enabled = 0
 
   " jump to the existing buffer if possible
   let g:fzf_buffers_jump = 1
@@ -318,14 +326,13 @@ if executable('fzf')
   let g:fzf_action = {
   \ 'ctrl-m': 'e',
   \ 'ctrl-t': 'e' }
-  nnoremap <C-t> :Files<cr>
+  nnoremap <buffer> <silent> <C-t> :Files<cr>
   nmap <silent> <leader>m :History<CR>
   if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
   " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
   endif
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-  " command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
   let g:fzf_files_options =
   \ '--preview "highlight -O ansi {} ;or cat {} 2> /dev/null | head -'.&lines.'"'
 
@@ -359,14 +366,8 @@ imap <silent><expr><CR> <SID>smart_cr()
 
 function! s:smart_cr()
     if pumvisible()
-      " if neosnippet#expandable()
-      "    return "\<Plug>(neosnippet_expand)"
-      " endif
       return "\<C-y>"
     else
-      " if neosnippet#expandable()
-      "    return "\<Plug>(neosnippet_expand)"
-      " endif
       return lexima#expand('<CR>', 'i')
     endif
 endfunction
@@ -384,6 +385,7 @@ endfunction
 " buftabline
 "-----------------------------------------------------------------------------
 " Buftab line specific setup
+" Cannot bind on ctrl-{digit} because it's reserved by the termiinal emulator
 let g:buftabline_show = 1
 let g:buftabline_numbers=2
 let g:buftabline_indicators=1
@@ -403,16 +405,8 @@ nmap <leader>9 <Plug>BufTabLine.Go(9)
 " buftabline gt behavior
 nmap gt :bn<cr>
 nmap tg :bp<cr>
-
-" Easy window motion
-nmap <silent> <C-w> :bn<CR>
-
 nmap <silent> <leader>c :bd<cr>
-"multi cursor mapping
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+
 
 "-----------------------------------------------------------------------------
 " EasyAlign settings
@@ -428,6 +422,7 @@ nmap ga <Plug>(EasyAlign)
 "-----------------------------------------------------------------------------
 " Neoformat
 "-----------------------------------------------------------------------------
+let g:neoformat_only_msg_on_error = 1
 let g:neoformat_enabled_js = ['jq']
 let g:neoformat_enabled_go = ['gofmt']
 if has("autocmd")
@@ -436,6 +431,87 @@ if has("autocmd")
   augroup fmt
       autocmd!
       autocmd BufWritePre *.json Neoformat
-      autocmd BufWritePre *.go Neoformat
+      " autocmd BufWritePre *.go Neoformat
   augroup END
 endif
+
+"-----------------------------------------------------------------------------
+" vim-go
+"-----------------------------------------------------------------------------
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_operators = 1
+let g:go_def_mapping_enabled = 0
+
+
+"Binding
+nnoremap <silent> <C-p> :GoDefPop<cr>
+nnoremap <silent> <C-]> :GoDef<cr>
+noremap <silent> <C-t> :Files<cr>
+
+set ttimeout
+set ttimeoutlen=0
+
+
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+  \ 'down':    '40%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
+
+nnoremap <silent> <Leader>s :call fzf#run({
+\   'down': '40%',
+\   'sink': 'botright split' })<CR>
+
+" Open files in vertical horizontal split
+nnoremap <silent> <Leader>v :call fzf#run({
+\   'right': winwidth('.') / 2,
+\   'sink':  'vertical botright split' })<CR>

@@ -46,7 +46,7 @@ color.alternate=white on rgb000
 color.scheduled=
 color.label=
 
-color.uda.priority.H=color1
-color.uda.priority.L=white
+color.uda.priority.H=red
+color.uda.priority.L=grey15
 color.uda.priority.M=yellow
 

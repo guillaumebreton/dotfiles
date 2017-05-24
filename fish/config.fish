@@ -163,7 +163,7 @@ end
 
 function tad --description "add a task and schedule it today"
     if set -q argv[1]
-        task add $argv sched:today
+        task add $argv sched:today seg:(segment)
     else
         echo "No task specified"
     end
@@ -179,6 +179,18 @@ end
 
 function tomo --description "List tomorrow task"
     task list sched:tomo due:tomo
+end
+
+
+function segment --description "Get the current segment"
+    set h (date +%H)
+    if test $h -ge 00 ;and  test $h -lt 13
+        echo 'M'
+    else if test $h -ge 13 ;and test $h -lt 18
+        echo  'A'
+    else
+        echo 'N'
+    end
 end
 
 #----------------------------------------------------------------------
