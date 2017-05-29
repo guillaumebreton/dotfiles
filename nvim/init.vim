@@ -34,6 +34,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'markcornick/vim-terraform'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'elubow/cql-vim'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
@@ -41,6 +42,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 " Plug 'keith/tmux.vim'
 Plug 'dag/vim-fish'
+Plug 'qpkorr/vim-bufkill'
 
 " Neomake
 " Plug 'neomake/neomake'
@@ -405,7 +407,7 @@ nmap <leader>9 <Plug>BufTabLine.Go(9)
 " buftabline gt behavior
 nmap gt :bn<cr>
 nmap tg :bp<cr>
-nmap <silent> <leader>c :bd<cr>
+nmap <silent> <leader>c :BD<cr>
 
 
 "-----------------------------------------------------------------------------
@@ -449,6 +451,7 @@ let g:go_def_mapping_enabled = 0
 "Binding
 nnoremap <silent> <C-p> :GoDefPop<cr>
 nnoremap <silent> <C-]> :GoDef<cr>
+noremap <silent> <C-m> :GoBuild<cr>
 noremap <silent> <C-t> :Files<cr>
 
 set ttimeout
@@ -456,11 +459,8 @@ set ttimeoutlen=0
 
 
 
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
+
+
 function! s:buflist()
   redir => ls
   silent ls
@@ -515,3 +515,10 @@ nnoremap <silent> <Leader>s :call fzf#run({
 nnoremap <silent> <Leader>v :call fzf#run({
 \   'right': winwidth('.') / 2,
 \   'sink':  'vertical botright split' })<CR>
+
+
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif

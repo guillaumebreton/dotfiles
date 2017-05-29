@@ -163,7 +163,7 @@ end
 
 function tad --description "add a task and schedule it today"
     if set -q argv[1]
-        task add $argv sched:today seg:(segment)
+        task add $argv sched:today seg:(segment) prio:L
     else
         echo "No task specified"
     end
@@ -294,3 +294,4 @@ end
 
 source /Users/guillaume/.config/fish/functions/fish_user_key_bindings.fish
 set -gx PATH /Users/guillaume/.cargo/bin $PATH
+set -gx PATH /Users/guillaume/bin $PATH
