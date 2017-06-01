@@ -1,16 +1,12 @@
 "-----------------------------------------------------------------------------
 "
+"
 "  I. Plugins
 "-----------------------------------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
 
 
-" Commentary plugin
 Plug 'tpope/vim-commentary'
-
-" Surround (cs"')
-" ysiw {  wraps word with parenthesis
-" v + S + { add brackets
 Plug 'tpope/vim-surround'
 
 " Autocomplete
@@ -40,28 +36,17 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
-" Plug 'keith/tmux.vim'
 Plug 'dag/vim-fish'
-Plug 'qpkorr/vim-bufkill'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
-" Neomake
-" Plug 'neomake/neomake'
-Plug 'sbdchd/neoformat'
-
-" tab replacement
-" Plug 'ap/vim-buftabline'
-
-"Fish configuration highlight plugin
 
 " Fuzzy finder
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Colorshemes
 Plug 'crusoexia/vim-monokai'
-Plug 'mhartington/oceanic-next'
-Plug 'dracula/vim'
-Plug 'jacoborus/tender.vim'
 
 " Plug 'scrooloose/nerdtree'
+Plug 'justinmk/vim-dirvish'
 
 call plug#end()
 
@@ -306,7 +291,6 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 "-----------------------------------------------------------------------------
 " Nerd tree
 "-----------------------------------------------------------------------------
-nmap <C-N> :NERDTreeToggle<CR>
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:NERDTreeCascadeOpenSingleChildDir = 1
@@ -329,16 +313,74 @@ if executable('fzf')
   \ 'ctrl-m': 'e',
   \ 'ctrl-t': 'e' }
   nnoremap <buffer> <silent> <C-t> :Files<cr>
-  nmap <silent> <leader>m :History<CR>
+
+  nmap <silent> <silent> <C-m> :History<CR>
   if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
   " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
   endif
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-  let g:fzf_files_options =
-  \ '--preview "highlight -O ansi {} ;or cat {} 2> /dev/null | head -'.&lines.'"'
+  " let g:fzf_files_options =
+  " \ '--preview "highlight -O ansi {} ;or cat {} 2> /dev/null | head -'.&lines.'"'
 
 endif
+
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+  \ 'down':    '40%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
+
+nnoremap <silent> <Leader>s :call fzf#run({
+\   'down': '40%',
+\   'sink': 'botright split' })<CR>
+
+" Open files in vertical horizontal split
+nnoremap <silent> <Leader>v :call fzf#run({
+\   'right': winwidth('.') / 2,
+\   'sink':  'vertical botright split' })<CR>
+
+
 
 "-----------------------------------------------------------------------------
 " EMMET
@@ -407,7 +449,6 @@ nmap <leader>9 <Plug>BufTabLine.Go(9)
 " buftabline gt behavior
 nmap gt :bn<cr>
 nmap tg :bp<cr>
-nmap <silent> <leader>c :BD<cr>
 
 
 "-----------------------------------------------------------------------------
@@ -419,6 +460,7 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
 
 
 "-----------------------------------------------------------------------------
@@ -440,85 +482,75 @@ endif
 "-----------------------------------------------------------------------------
 " vim-go
 "-----------------------------------------------------------------------------
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_operators = 1
-let g:go_def_mapping_enabled = 0
+augroup GoAutoCmd
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_operators = 1
+  let g:go_def_mapping_enabled = 0
+  let g:go_def_mode = 'godef'
 
 
-"Binding
-nnoremap <silent> <C-p> :GoDefPop<cr>
-nnoremap <silent> <C-]> :GoDef<cr>
-noremap <silent> <C-m> :GoBuild<cr>
-noremap <silent> <C-t> :Files<cr>
+  "Binding
+  autocmd FileType go nnoremap <silent> <C-p> :GoDefPop<cr>
+  autocmd FileType go nnoremap <silent> <C-g> :GoDef<cr>
+  autocmd FileType go noremap <silent> <leader>m :GoBuild<cr>
+  autocmd FileType go noremap <silent> <leader>t :GoTest<cr>
+augroup END
 
 set ttimeout
 set ttimeoutlen=0
+noremap <silent> <C-t> :Files<cr>
 
-
-
-
-
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
-
-
-function! s:tags_sink(line)
-  let parts = split(a:line, '\t\zs')
-  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
-  execute 'silent e' parts[1][:-2]
-  let [magic, &magic] = [&magic, 0]
-  execute excmd
-  let &magic = magic
-endfunction
-
-function! s:tags()
-  if empty(tagfiles())
-    echohl WarningMsg
-    echom 'Preparing tags'
-    echohl None
-    call system('ctags -R')
-  endif
-
-  call fzf#run({
-  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
-  \            '| grep -v -a ^!',
-  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
-  \ 'down':    '40%',
-  \ 'sink':    function('s:tags_sink')})
-endfunction
-
-command! Tags call s:tags()
-
-nnoremap <silent> <Leader>s :call fzf#run({
-\   'down': '40%',
-\   'sink': 'botright split' })<CR>
-
-" Open files in vertical horizontal split
-nnoremap <silent> <Leader>v :call fzf#run({
-\   'right': winwidth('.') / 2,
-\   'sink':  'vertical botright split' })<CR>
-
-
-
+"-----------------------------------------------------------------------------
+" RG
+"-----------------------------------------------------------------------------
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepprg=rg\ -i\ --vimgrep\ --no-heading
     set grepformat=%f:%l:%c:%m,%f:%l:%m
+    " bind \ (backward slash) to grep shortcut
+    command! -nargs=+ -complete=file -bar Rg silent! grep! <args>|execute s:Ctoggle()|redraw!
+    nnoremap \ :Rg<SPACE>
 endif
+nmap <silent> <leader>w :bw<cr>
+
+
+"-----------------------------------------------------------------------------
+" Quicklist
+"-----------------------------------------------------------------------------
+let s:quickfixlist_is_open = 0
+
+function! s:Copen()
+  copen
+  let s:quickfixlist_is_open = 1
+  let s:quickfixlist_buffer = bufnr("%")
+endfunction
+
+function! s:Cclose()
+  if s:quickfixlist_buffer == bufnr("%")
+    " We are closing the quickfix window as we are still in it.
+    " Return to the window we were previously in (not in the adjascent split)
+    execute winnr('#') . "wincmd w"
+  endif
+  cclose
+  let s:quickfixlist_is_open = 0
+endfunction
+
+function! s:Ctoggle()
+  if s:quickfixlist_is_open
+    call s:Cclose()
+  else
+    call s:Copen()
+  endif
+endfunction
+
+command! Copen call s:Copen()
+command! Cclose call s:Cclose()
+command! Ctoggle call s:Ctoggle()
+
+nmap <silent> <C-\> :Ctoggle<cr>
+nmap <silent> <C-[> :cprevious<cr>
+nmap <silent> <C-]> :cnext<cr>
+
+nmap <Esc> <nop>
