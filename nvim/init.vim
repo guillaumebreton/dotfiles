@@ -1,10 +1,4 @@
-"-----------------------------------------------------------------------------
-"
-"
-"  I. Plugins
-"-----------------------------------------------------------------------------
-"
-"
+" vim: ts=4 sw=4 et
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -19,6 +13,9 @@ if dein#load_state('/Users/guillaume/.dein')
   " Let dein manage dein
   " Required:
     call dein#add('/Users/guillaume/.dein/repos/github.com/Shougo/dein.vim')
+
+
+    " General
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-surround')
 
@@ -51,6 +48,7 @@ if dein#load_state('/Users/guillaume/.dein')
     " Colorshemes
     call dein#add('crusoexia/vim-monokai')
     call dein#add('justinmk/vim-dirvish')
+    call dein#add('neomake/neomake')
 
   call dein#end()
   call dein#save_state()
@@ -361,8 +359,9 @@ call s:source_file('config/plugins/buftabline.vim')
 call s:source_file('config/plugins/deoplete.vim')
 call s:source_file('config/plugins/easyalign.vim')
 call s:source_file('config/plugins/emmet.vim')
-call s:source_file('config/plugins/fzf.vim')
 call s:source_file('config/plugins/lexima.vim')
 call s:source_file('config/plugins/neoformat.vim')
 call s:source_file('config/plugins/rg.vim')
 call s:source_file('config/plugins/vimgo.vim')
+" call s:source_file('config/plugins/neomake.vim')
+call s:source_file('config/plugins/fzf.vim')
