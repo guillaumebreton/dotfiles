@@ -3,52 +3,70 @@
 "
 "  I. Plugins
 "-----------------------------------------------------------------------------
-call plug#begin('~/.config/nvim/plugged')
+"
+"
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
+" Required:
+set runtimepath+=/Users/guillaume/.dein/repos/github.com/Shougo/dein.vim
 
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+" Required:
+if dein#load_state('/Users/guillaume/.dein')
+  call dein#begin('/Users/guillaume/.dein')
 
-" Autocomplete
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+  " Let dein manage dein
+  " Required:
+    call dein#add('/Users/guillaume/.dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('tpope/vim-commentary')
+    call dein#add('tpope/vim-surround')
 
+    " Autocomplete
+    " function! DoRemote(arg)
+    "   UpdateRemotePlugins
+    " endfunction
 
-Plug 'brooth/far.vim'
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('zchee/deoplete-go', {'build': 'make'})
 
-" Auto pair quote brakets etc
-Plug 'cohama/lexima.vim'
-Plug 'mattn/emmet-vim'
+    " Auto pair quote brakets etc
+    call dein#add('cohama/lexima.vim')
+    call dein#add('mattn/emmet-vim')
 
-" Syntax
-Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown'
-Plug 'derekwyatt/vim-scala'
-Plug 'elixir-lang/vim-elixir'
-Plug 'markcornick/vim-terraform'
-Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'elubow/cql-vim'
-Plug 'posva/vim-vue'
-Plug 'tpope/vim-surround'
-Plug 'junegunn/vim-easy-align'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'dag/vim-fish'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('plasticboy/vim-markdown')
+    call dein#add('derekwyatt/vim-scala')
+    call dein#add('elixir-lang/vim-elixir')
+    call dein#add('markcornick/vim-terraform')
+    call dein#add('cespare/vim-toml')
+    " call dein#add('fatih/vim-go', { 'do': ':GoInstallBinaries' })
+    call dein#add('elubow/cql-vim')
+    call dein#add('posva/vim-vue')
+    call dein#add('tpope/vim-surround')
+    call dein#add('junegunn/vim-easy-align')
+    " call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('ekalinin/Dockerfile.vim')
+    call dein#add('dag/vim-fish')
 
+    " Fuzzy finder
+    call dein#add('/usr/local/opt/fzf') | call dein#add('junegunn/fzf.vim')
 
-" Fuzzy finder
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-" Colorshemes
-Plug 'crusoexia/vim-monokai'
+    " Colorshemes
+    call dein#add('crusoexia/vim-monokai')
+    call dein#add('justinmk/vim-dirvish')
 
-" Plug 'scrooloose/nerdtree'
-Plug 'justinmk/vim-dirvish'
+  call dein#end()
+  call dein#save_state()
+endif
 
-call plug#end()
+if dein#check_install()
+          call dein#install()
+endif
+
+filetype plugin indent on
+syntax enable
+
 
 "-----------------------------------------------------------------------------
 "  II. Setttings
@@ -284,238 +302,27 @@ endif
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
-"-----------------------------------------------------------------------------
-"  IV. Plugins configuration
-"-----------------------------------------------------------------------------
-"
-"-----------------------------------------------------------------------------
-" Nerd tree
-"-----------------------------------------------------------------------------
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeWinSize = 40
-let g:NERDTreeCascadeOpenSingleChildDir = 1
-let g:NERDTreeCascadeSingleChildDir = 0
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeRespectWildIgnore = 0
-let g:NERDTreeAutoDeleteBuffer = 0
-" let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeHijackNetrw = 1
-"-----------------------------------------------------------------------------
-" FZF
-"-----------------------------------------------------------------------------
-if executable('fzf')
+let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+function! s:source_file(path, ...) abort
+	let use_global = get(a:000, 0, ! has('vim_starting'))
+	let abspath = resolve(expand('~/.config/nvim/'.a:path))
+	if ! use_global
+		execute 'source' fnameescape(abspath)
+		return
+	endif
 
-  " jump to the existing buffer if possible
-  let g:fzf_buffers_jump = 1
-
-  " mutiple selection
-  let g:fzf_action = {
-  \ 'ctrl-m': 'e',
-  \ 'ctrl-t': 'e' }
-  nnoremap <buffer> <silent> <C-t> :Files<cr>
-
-  nmap <silent> <silent> <C-m> :History<CR>
-  if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-  " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-  endif
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-  " let g:fzf_files_options =
-  " \ '--preview "highlight -O ansi {} ;or cat {} 2> /dev/null | head -'.&lines.'"'
-
-endif
-
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
+	let content = map(readfile(abspath),
+		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
+	let tempfile = tempname()
+	try
+		call writefile(content, tempfile)
+		execute printf('source %s', fnameescape(tempfile))
+	finally
+		if filereadable(tempfile)
+			call delete(tempfile)
+		endif
+	endtry
 endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
-
-
-function! s:tags_sink(line)
-  let parts = split(a:line, '\t\zs')
-  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
-  execute 'silent e' parts[1][:-2]
-  let [magic, &magic] = [&magic, 0]
-  execute excmd
-  let &magic = magic
-endfunction
-
-function! s:tags()
-  if empty(tagfiles())
-    echohl WarningMsg
-    echom 'Preparing tags'
-    echohl None
-    call system('ctags -R')
-  endif
-
-  call fzf#run({
-  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
-  \            '| grep -v -a ^!',
-  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
-  \ 'down':    '40%',
-  \ 'sink':    function('s:tags_sink')})
-endfunction
-
-command! Tags call s:tags()
-
-nnoremap <silent> <Leader>s :call fzf#run({
-\   'down': '40%',
-\   'sink': 'botright split' })<CR>
-
-" Open files in vertical horizontal split
-nnoremap <silent> <Leader>v :call fzf#run({
-\   'right': winwidth('.') / 2,
-\   'sink':  'vertical botright split' })<CR>
-
-
-
-"-----------------------------------------------------------------------------
-" EMMET
-"-----------------------------------------------------------------------------
-let g:user_emmet_leader_key='<C-e>'
-
-"-----------------------------------------------------------------------------
-" LEXIMA
-"-----------------------------------------------------------------------------
-" Lexima
-" Make lexima reloadable
-let g:lexima_no_default_rules = 1
-call lexima#set_default_rules()
-
-"-----------------------------------------------------------------------------
-" DEOPLETE
-"-----------------------------------------------------------------------------
-"deoplete enabled at startup
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 'ignorecase'
-let g:deoplete#sources = {}
-let g:deoplete#sources_ = ['buffer']
-
-imap <expr><TAB> <SID>smart_tab()
-imap <silent><expr><CR> <SID>smart_cr()
-
-
-function! s:smart_cr()
-    if pumvisible()
-      return "\<C-y>"
-    else
-      return lexima#expand('<CR>', 'i')
-    endif
-endfunction
-
-function! s:smart_tab()
-    if pumvisible()
-      return "\<C-n>"
-    " elseif neosnippet#jumpable()
-    "   return "\<Plug>(neosnippet_jump)"
-    endif
-    return "\<TAB>"
-endfunction
-
-"-----------------------------------------------------------------------------
-" buftabline
-"-----------------------------------------------------------------------------
-" Buftab line specific setup
-" Cannot bind on ctrl-{digit} because it's reserved by the termiinal emulator
-let g:buftabline_show = 1
-let g:buftabline_numbers=2
-let g:buftabline_indicators=1
-let showtabline=0
-nmap <leader>1 <Plug>BufTabLine.Go(1)
-nmap <leader>! <Plug>BufTabLine.Go(10)
-nmap <leader>@ <Plug>BufTabLine.Go(11)
-nmap <leader>2 <Plug>BufTabLine.Go(2)
-nmap <leader>3 <Plug>BufTabLine.Go(3)
-nmap <leader>4 <Plug>BufTabLine.Go(4)
-nmap <leader>5 <Plug>BufTabLine.Go(5)
-nmap <leader>6 <Plug>BufTabLine.Go(6)
-nmap <leader>7 <Plug>BufTabLine.Go(7)
-nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 <Plug>BufTabLine.Go(9)
-
-" buftabline gt behavior
-nmap gt :bn<cr>
-nmap tg :bp<cr>
-
-
-"-----------------------------------------------------------------------------
-" EasyAlign settings
-"-----------------------------------------------------------------------------
-" easy align
-" " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-
-
-"-----------------------------------------------------------------------------
-" Neoformat
-"-----------------------------------------------------------------------------
-let g:neoformat_only_msg_on_error = 1
-let g:neoformat_enabled_js = ['jq']
-let g:neoformat_enabled_go = ['gofmt']
-if has("autocmd")
-  filetype on
-
-  augroup fmt
-      autocmd!
-      autocmd BufWritePre *.json Neoformat
-      " autocmd BufWritePre *.go Neoformat
-  augroup END
-endif
-
-"-----------------------------------------------------------------------------
-" vim-go
-"-----------------------------------------------------------------------------
-augroup GoAutoCmd
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_operators = 1
-  let g:go_def_mapping_enabled = 0
-  let g:go_def_mode = 'godef'
-
-
-  "Binding
-  autocmd FileType go nnoremap <silent> <C-p> :GoDefPop<cr>
-  autocmd FileType go nnoremap <silent> <C-g> :GoDef<cr>
-  autocmd FileType go noremap <silent> <leader>m :GoBuild<cr>
-  autocmd FileType go noremap <silent> <leader>t :GoTest<cr>
-augroup END
-
-set ttimeout
-set ttimeoutlen=0
-noremap <silent> <C-t> :Files<cr>
-
-"-----------------------------------------------------------------------------
-" RG
-"-----------------------------------------------------------------------------
-if executable("rg")
-    set grepprg=rg\ -i\ --vimgrep\ --no-heading
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-    " bind \ (backward slash) to grep shortcut
-    command! -nargs=+ -complete=file -bar Rg silent! grep! <args>|execute s:Ctoggle()|redraw!
-    nnoremap \ :Rg<SPACE>
-endif
-nmap <silent> <leader>w :bw<cr>
-
-
 "-----------------------------------------------------------------------------
 " Quicklist
 "-----------------------------------------------------------------------------
@@ -550,7 +357,16 @@ command! Cclose call s:Cclose()
 command! Ctoggle call s:Ctoggle()
 
 nmap <silent> <C-\> :Ctoggle<cr>
-nmap <silent> <C-[> :cprevious<cr>
-nmap <silent> <C-]> :cnext<cr>
+noremap <silent> <C-a> :cprevious<cr>
+noremap <silent> <C-s> :cnext<cr>
 
-nmap <Esc> <nop>
+" Load all plugins
+call s:source_file('config/plugins/buftabline.vim')
+call s:source_file('config/plugins/deoplete.vim')
+call s:source_file('config/plugins/easyalign.vim')
+call s:source_file('config/plugins/emmet.vim')
+call s:source_file('config/plugins/fzf.vim')
+call s:source_file('config/plugins/lexima.vim')
+call s:source_file('config/plugins/neoformat.vim')
+call s:source_file('config/plugins/rg.vim')
+call s:source_file('config/plugins/vimgo.vim')

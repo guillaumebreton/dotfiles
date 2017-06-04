@@ -24,16 +24,6 @@ link_replace() {
 }
 
 
-# echo "+ Add prezto"
-# if [ ! -d "$HOME/.zprezto" ]; then
-#   git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
-#   setopt EXTENDED_GLOB
-#   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-#     ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-#   done
-#   chsh -s /bin/zsh
-# fi
-
 echo "+ Add fzf"
 if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
@@ -44,11 +34,15 @@ echo "+ Install nvim settings"
 
 if [ ! -d "$HOME/.config/nvim" ]; then
   mkdir -p .config/nvim
-  #install plug
-  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  mkdir "$HOME/.config/nvim/config"
+
+  # install dein
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh
+  exec sh /tmp/installer.sh
 fi
 link_replace "$pwd/nvim/init.vim" "$HOME/.config/nvim/init.vim"
 link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim/snippets"
+link_replace "$pwd/nvim/config/plugins" "$HOME/.config/nvim/config/plugins"
 
 echo "+ Add prezto theme"
 link_replace "$pwd/zprezto/prompt_yak_setup" "$HOME/.zprezto/modules/prompt/functions/prompt_yak_setup"
