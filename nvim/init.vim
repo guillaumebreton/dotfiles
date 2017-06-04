@@ -22,10 +22,6 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-surround')
 
-    " Autocomplete
-    " function! DoRemote(arg)
-    "   UpdateRemotePlugins
-    " endfunction
 
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('zchee/deoplete-go', {'build': 'make'})
@@ -40,7 +36,7 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('elixir-lang/vim-elixir')
     call dein#add('markcornick/vim-terraform')
     call dein#add('cespare/vim-toml')
-    " call dein#add('fatih/vim-go', { 'do': ':GoInstallBinaries' })
+    call dein#add('fatih/vim-go', { 'do': ':GoInstallBinaries' })
     call dein#add('elubow/cql-vim')
     call dein#add('posva/vim-vue')
     call dein#add('tpope/vim-surround')
