@@ -10,10 +10,9 @@ augroup GoAutoCmd
 
 
   "Binding
-  autocmd FileType go nnoremap <silent> <C-p> :GoDefPop<cr>
-  autocmd FileType go nnoremap <silent> <C-g> :GoDef<cr>
-  autocmd FileType go noremap <silent> <leader>m <Esc>:w<CR>:GoBuild<cr>
-  autocmd FileType go noremap <silent> <leader>t <Esc>:w<CR>:GoTest<cr>
+autocmd FileType go nnoremap <silent> <C-p> :GoDefPop<cr>
+autocmd FileType go nnoremap <silent> <C-g> :GoDef<cr>
+autocmd FileType go noremap <silent> <leader>t <Esc>:w<CR>:GoTest<cr>
 augroup END
 
 set ttimeout

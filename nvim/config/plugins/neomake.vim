@@ -1,26 +1,25 @@
-let g:neomake_verbose = 3
 
 
-let g:neomake_go_gofmt_maker = {
-        \ 'exe': 'gofmt',
-        \ 'args': ['-w'],
-        \ 'errorformat':
-            \ '%f:%l:%c: %m,' .
-            \ '%-G%.%#'
-    \ }
+if executable('gofmt')
+  let g:neomake_go_gofmt_maker = {
+          \ 'exe': 'gofmt',
+          \ 'args': ['-w'],
+          \ 'errorformat':
+              \ '%f:%l:%c: %m,' .
+              \ '%-G%.%#'
+      \ }
+endif
 
-" let g:neomake_go_gobuild_maker = {
-"     \ 'exe': 'sh',
-"     \ 'args': ['-c', 'go build -o /dev/null ./\$0', '%:h'],
-"     \ 'errorformat':
-"         \ '%W%f:%l: warning: %m,' .
-"         \ '%E%f:%l:%c:%m,' .
-"         \ '%E%f:%l:%m,' .
-"         \ '%C%\s%\+%m,' .
-"         \ '%-G#%.%#'
-" \ }
-
-let g:neomake_go_enabled_makers         = ['gofmt', 'go']
+if executable('goimports')
+  let g:neomake_go_goimports_maker = {
+          \ 'exe': 'goimports',
+          \ 'args': ['-w'],
+          \ 'errorformat':
+              \ '%f:%l:%c: %m,' .
+              \ '%-G%.%#'
+      \ }
+endif
+let g:neomake_go_enabled_makers         = ['gofmt', 'goimports', 'go']
 let g:neomake_open_list   = 2
 let g:neomake_list_height = 5
 let g:neomake_verbose     = 0
@@ -38,4 +37,6 @@ function! s:Neomake_callback(options)
         checktime
     endif
 endfunction
+
+" autocmd BufUnload * lclose
  

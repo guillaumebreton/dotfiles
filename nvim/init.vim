@@ -354,6 +354,16 @@ nmap <silent> <C-\> :Ctoggle<cr>
 noremap <silent> <C-a> :cprevious<cr>
 noremap <silent> <C-s> :cnext<cr>
 
+let b:qf_isloclist = len(getloclist(0)) > 0 ? 1 : 0
+
+if b:qf_isloclist
+    nnoremap <buffer><silent> <C-\> :lclose<CR>
+    nnoremap <buffer><silent> O <CR>:lclose<CR>
+else 
+    nnoremap <buffer><silent> q :cclose<CR>
+    nnoremap <buffer><silent> O <CR>:cclose<CR>
+endif
+
 " Load all plugins
 call s:source_file('config/plugins/buftabline.vim')
 call s:source_file('config/plugins/deoplete.vim')
