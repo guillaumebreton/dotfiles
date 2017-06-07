@@ -50,6 +50,8 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('justinmk/vim-dirvish')
     call dein#add('neomake/neomake')
 
+    call dein#add('Shougo/vinarise.vim')
+
   call dein#end()
   call dein#save_state()
 endif

@@ -162,8 +162,13 @@ end
 
 
 function tad --description "add a task and schedule it today"
+  # test if a string contains the 
     if set -q argv[1]
+      if echo $argv | grep 'prio:' >/dev/null
+        task add $argv sched:today seg:(segment) 
+      else
         task add $argv sched:today seg:(segment) prio:L
+      end
     else
         echo "No task specified"
     end
