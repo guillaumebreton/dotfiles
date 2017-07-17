@@ -1,4 +1,5 @@
 " vim: ts=4 sw=4 et
+"
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -51,6 +52,13 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('neomake/neomake')
 
     call dein#add('Shougo/vinarise.vim')
+    call dein#add('ajmwagar/vim-dues')
+
+
+    call dein#add('brooth/far.vim')
+    call dein#add('sheerun/vim-polyglot')
+    call dein#add('vim-scripts/Ferret')
+    
 
   call dein#end()
   call dein#save_state()
@@ -68,6 +76,7 @@ syntax enable
 "  II. Setttings
 "-----------------------------------------------------------------------------
 colorscheme monokai
+" colorscheme dues
 set t_Co=256
 set laststatus=2
 
@@ -286,7 +295,7 @@ xnoremap c "xc
 
 " Quickly edit the configuration file
 nmap <leader>i :e ~/.config/nvim/init.vim<cr>
-nmap <leader>r :source ~/.config/nvim/init.vim<cr>
+" nmap <leader>r :source ~/.config/nvim/init.vim<cr>
 
 " Print current date
 nmap <Leader>d :r! date "+\%Y-\%m-\%d"<cr>
@@ -319,52 +328,14 @@ function! s:source_file(path, ...) abort
 		endif
 	endtry
 endfunction
-"-----------------------------------------------------------------------------
-" Quicklist
-"-----------------------------------------------------------------------------
-let s:quickfixlist_is_open = 0
 
-function! s:Copen()
-  copen
-  let s:quickfixlist_is_open = 1
-  let s:quickfixlist_buffer = bufnr("%")
-endfunction
 
-function! s:Cclose()
-  if s:quickfixlist_buffer == bufnr("%")
-    " We are closing the quickfix window as we are still in it.
-    " Return to the window we were previously in (not in the adjascent split)
-    execute winnr('#') . "wincmd w"
-  endif
-  cclose
-  let s:quickfixlist_is_open = 0
-endfunction
+" Quick list 
+nmap <silent> <C-n> :cn<CR>
+nmap <silent> <C-p> :cp<CR>
+nmap <silent> <C-c> :cclose<CR>
 
-function! s:Ctoggle()
-  if s:quickfixlist_is_open
-    call s:Cclose()
-  else
-    call s:Copen()
-  endif
-endfunction
 
-command! Copen call s:Copen()
-command! Cclose call s:Cclose()
-command! Ctoggle call s:Ctoggle()
-
-nmap <silent> <C-\> :Ctoggle<cr>
-noremap <silent> <C-a> :cprevious<cr>
-noremap <silent> <C-s> :cnext<cr>
-
-let b:qf_isloclist = len(getloclist(0)) > 0 ? 1 : 0
-
-if b:qf_isloclist
-    nnoremap <buffer><silent> <C-\> :lclose<CR>
-    nnoremap <buffer><silent> O <CR>:lclose<CR>
-else 
-    nnoremap <buffer><silent> q :cclose<CR>
-    nnoremap <buffer><silent> O <CR>:cclose<CR>
-endif
 
 " Load all plugins
 call s:source_file('config/plugins/buftabline.vim')
@@ -377,3 +348,4 @@ call s:source_file('config/plugins/rg.vim')
 call s:source_file('config/plugins/vimgo.vim')
 call s:source_file('config/plugins/fzf.vim')
 call s:source_file('config/plugins/neomake.vim')
+call s:source_file('config/plugins/ferret.vim')

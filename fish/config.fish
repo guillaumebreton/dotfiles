@@ -118,9 +118,12 @@ alias m='make'
 eval (direnv hook fish)
 
 # Alias for taskwarrior
-alias t='task ls'
+alias t='task ls '
 alias tw='task week'
-alias tm='task tomorrow'
+alias tomo='task tomorrow'
+
+
+alias today='task ls'
 
 function tn -d "Add tag +next to the task" -a 'taskid'
     if set -q argv[1]
@@ -167,7 +170,7 @@ function tad --description "add a task and schedule it today"
       if echo $argv | grep 'prio:' >/dev/null
         task add $argv sched:today seg:(segment) 
       else
-        task add $argv sched:today seg:(segment) prio:L
+        task add $argv sched:today seg:(segment) prio:
       end
     else
         echo "No task specified"
@@ -180,10 +183,6 @@ function tp --description "Postpone a task" --argument-names 'taskid'
     else
         task $argv[1] mod due: sched:tomorrow
     end
-end
-
-function tomo --description "List tomorrow task"
-    task list sched:tomo due:tomo
 end
 
 
