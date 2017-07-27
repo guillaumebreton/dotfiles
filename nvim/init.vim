@@ -50,6 +50,7 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('crusoexia/vim-monokai')
     call dein#add('justinmk/vim-dirvish')
     call dein#add('neomake/neomake')
+    call dein#add('sbdchd/neoformat')
 
     call dein#add('Shougo/vinarise.vim')
     call dein#add('ajmwagar/vim-dues')
@@ -184,8 +185,8 @@ if has("autocmd")
   au BufRead,BufNewFile *.md setlocal textwidth=80
   au BufRead,BufNewFile *.txt setlocal textwidth=80
 
-  " add json syntax highlighting
-  au BufNewFile,BufRead *.json set ft=javascript
+  " " add json syntax highlighting
+  " au BufNewFile,BufRead *.json set ft=javascript
 
   " add rabl as ruby files
   au BufNewFile,BufRead *.rabl set ft=ruby
