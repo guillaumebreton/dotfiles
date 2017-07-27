@@ -19,6 +19,8 @@ if executable('goimports')
               \ '%-G%.%#'
       \ }
 endif
+
+
 let g:neomake_go_enabled_makers         = ['gofmt', 'goimports', 'go']
 let g:neomake_open_list   = 2
 let g:neomake_list_height = 5
