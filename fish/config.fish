@@ -165,13 +165,13 @@ end
 
 
 function tad --description "add a task and schedule it today"
-  # test if a string contains the 
+    # test if a string contains the 
     if set -q argv[1]
-      if echo $argv | grep 'prio:' >/dev/null
-        task add $argv sched:today seg:(segment) 
-      else
-        task add $argv sched:today seg:(segment) prio:
-      end
+        if echo $argv | grep 'prio:' >/dev/null
+            task add $argv sched:today seg:(segment)
+        else
+            task add $argv sched:today seg:(segment) prio:
+        end
     else
         echo "No task specified"
     end
@@ -188,10 +188,12 @@ end
 
 function segment --description "Get the current segment"
     set h (date +%H)
-    if test $h -ge 00 ;and  test $h -lt 13
+    if test $h -ge 00
+        and test $h -lt 13
         echo 'M'
-    else if test $h -ge 13 ;and test $h -lt 18
-        echo  'A'
+    else if test $h -ge 13
+        and test $h -lt 18
+        echo 'A'
     else
         echo 'N'
     end
@@ -298,4 +300,4 @@ end
 
 source /Users/guillaume/.config/fish/functions/fish_user_key_bindings.fish
 set -gx PATH /Users/guillaume/.cargo/bin $PATH
-set -gx PATH /Users/guillaume/bin $PATH
+set -gx PATH $HOME/bin $PATH
