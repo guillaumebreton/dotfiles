@@ -27,6 +27,9 @@ let g:neomake_list_height = 5
 let g:neomake_verbose     = 0
 
 
+hi NeomakeError ctermfg=white ctermbg=red
+hi NeomakeWarning ctermfg=white ctermbg=yellow
+
 " autocmd! BufWritePost * Neomake
 command Errors lopen
 

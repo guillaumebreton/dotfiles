@@ -48,6 +48,8 @@ if dein#load_state('/Users/guillaume/.dein')
 
     " Colorshemes
     call dein#add('crusoexia/vim-monokai')
+
+    " Misc
     call dein#add('justinmk/vim-dirvish')
     call dein#add('neomake/neomake')
     call dein#add('sbdchd/neoformat')
