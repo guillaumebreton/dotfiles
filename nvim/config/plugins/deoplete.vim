@@ -4,6 +4,9 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#sources = {}
 let g:deoplete#sources_ = ['buffer']
 
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ["neosnippet"]
+
 imap <expr><TAB> <SID>smart_tab()
 imap <silent><expr><CR> <SID>smart_cr()
 
@@ -19,8 +22,8 @@ endfunction
 function! s:smart_tab()
     if pumvisible()
       return "\<C-n>"
-    " elseif neosnippet#jumpable()
-    "   return "\<Plug>(neosnippet_jump)"
+    elseif neosnippet#jumpable()
+      return "\<Plug>(neosnippet_jump)"
     endif
     return "\<TAB>"
 endfunction

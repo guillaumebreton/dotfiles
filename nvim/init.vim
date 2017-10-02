@@ -22,6 +22,7 @@ if dein#load_state('/Users/guillaume/.dein')
 
 
     call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Shougo/neosnippet.vim')
     call dein#add('zchee/deoplete-go', {'build': 'make'})
 
     " Auto pair quote brakets etc
@@ -347,6 +348,7 @@ call s:source_file('config/plugins/easyalign.vim')
 call s:source_file('config/plugins/emmet.vim')
 call s:source_file('config/plugins/lexima.vim')
 call s:source_file('config/plugins/neoformat.vim')
+call s:source_file('config/plugins/neosnippet.vim')
 call s:source_file('config/plugins/rg.vim')
 call s:source_file('config/plugins/vimgo.vim')
 call s:source_file('config/plugins/fzf.vim')

@@ -1,7 +1,7 @@
 
 source go.vim
 
-snippet     helloworld
+snippet     main
 abbr        package main\nimport fmt...
 options     head
   package main
@@ -13,6 +13,8 @@ options     head
   func main() {
     fmt.Printf("Hello, world\n")
   }
+
+
 
 snippet     func
 abbr        func ...() { ... }
@@ -40,6 +42,10 @@ options     head
 snippet     println
 options     head
   fmt.Println(${0:TARGET})
+
+snippet     printf
+options     head
+  fmt.Printf("%+v\n",${0:TARGET})
 
 snippet     struct
 options     head

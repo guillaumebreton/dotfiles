@@ -17,11 +17,13 @@
 [pull]
 	rebase = true
 [user]
-	signingkey = 1C36B7D5B6CF03BE
-	name = Guillaume Breton
+  signingkey = 1C36B7D5B6CF03BE
+  name = Guillaume Breton
 [rebase]
 	autosquash = true
 [commit]
 	gpgsign = true
 [credential]
 	helper = osxkeychain
+[gpg]
+	program = gpg
