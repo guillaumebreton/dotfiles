@@ -17,7 +17,7 @@
 [pull]
 	rebase = true
 [user]
-  signingkey = 1C36B7D5B6CF03BE
+  signingkey = CAA6186472A2F10B
   name = Guillaume Breton
 [rebase]
 	autosquash = true

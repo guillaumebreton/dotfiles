@@ -36,6 +36,7 @@ export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin::$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  echo "Load szhrc"
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
