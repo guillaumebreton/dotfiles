@@ -18,11 +18,10 @@
 	rebase = true
 [user]
   signingkey = CAA6186472A2F10B
-  name = Guillaume Breton
 [rebase]
 	autosquash = true
 [commit]
-	gpgsign = true
+	gpgsign = false
 [credential]
 	helper = osxkeychain
 [gpg]

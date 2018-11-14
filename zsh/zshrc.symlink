@@ -78,3 +78,4 @@ zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
 export FZF_DEFAULT_COMMAND='rg --no-messages --files --hidden --follow --glob "!.git/*"'
+export BRING_YOUR_OWN_GPG_AGENT="test"
