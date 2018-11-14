@@ -6,9 +6,8 @@ set -g default-terminal "xterm-256color"
 
 
 #mouse option
-bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
-bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
-
+bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy" 
 ###########################
 #  Configuration
 ###########################
@@ -44,10 +43,9 @@ set -g renumber-windows on
 
 # # enable pbcopy and pbpaste
 # # https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/blob/master/README.md
-# set-option -g default-shell fish
 set-option -g default-command "reattach-to-user-namespace -l ${SHELL}"
 
-
+set -g set-clipboard on
 
 
 ###########################
