@@ -41,6 +41,7 @@ if [ ! -d "$HOME/.config/nvim" ]; then
   exec sh /tmp/installer.sh
 fi
 link_replace "$pwd/nvim/init.vim" "$HOME/.config/nvim/init.vim"
+link_replace "$pwd/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
 link_replace "$pwd/nvim/snippets" "$HOME/.config/nvim/snippets"
 link_replace "$pwd/nvim/config/plugins" "$HOME/.config/nvim/config/plugins"
 
