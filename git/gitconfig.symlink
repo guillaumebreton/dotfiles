@@ -17,11 +17,11 @@
 [pull]
 	rebase = true
 [user]
-  signingkey = CAA6186472A2F10B
+  signingkey = 0E9644C814E8EF511911095513F7B0EAE0D56E14
 [rebase]
 	autosquash = true
 [commit]
-	gpgsign = false
+	gpgsign = true
 [credential]
 	helper = osxkeychain
 [gpg]

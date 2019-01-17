@@ -15,3 +15,9 @@ alias grh="git reset --hard head"
 alias gri="git rebase -i"
 alias gcapf="gaa && gca && gpf"
 alias gcp="gaa && gc && gpf"
+alias grc="git rebase --continue"
+
+gsu(){
+    git branch --set-upstream-to=origin/$1 $1
+
+}

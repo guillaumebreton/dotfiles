@@ -14,3 +14,8 @@ exec_make() {
   cmd=$1
   make $cmd
 }
+
+alias got="go test ./..."
+alias goi="go install ."
+alias gor="go run ."
+alias gob="go build ."
