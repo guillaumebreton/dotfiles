@@ -14,7 +14,7 @@ alias gpu="git pull"
 alias grh="git reset --hard head"
 alias gri="git rebase -i"
 alias gcapf="gaa && gca && gpf"
-alias gcp="gaa && gc && gpf"
+alias gcp="gaa && gc && gp"
 alias grc="git rebase --continue"
 
 gsu(){
