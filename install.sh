@@ -2,6 +2,11 @@
 
 pwd=$(pwd)
 
+
+# install a bunch of tools
+brew install exa rg
+brew cask install alacritty
+
 if [ -f "$HOME/.sources" ]; then
   rm "$HOME/.sources"
 fi
