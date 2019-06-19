@@ -21,3 +21,5 @@ gsu(){
     git branch --set-upstream-to=origin/$1 $1
 
 }
+
+alias pr="hub pull-request -b master -o "

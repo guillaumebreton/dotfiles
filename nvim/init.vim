@@ -62,7 +62,7 @@ if dein#load_state('/Users/guillaume/.dein')
     call dein#add('brooth/far.vim')
     call dein#add('sheerun/vim-polyglot')
     call dein#add('vim-scripts/Ferret')
-    
+
 
   call dein#end()
   call dein#save_state()
@@ -287,6 +287,7 @@ function! NumberToggle()
     set nornu
     set number
   else
+
     set rnu
   endif
 endfunc
@@ -334,7 +335,7 @@ function! s:source_file(path, ...) abort
 endfunction
 
 
-" Quick list 
+" Quick list
 nmap <silent> <C-n> :cn<CR>
 nmap <silent> <C-p> :cp<CR>
 nmap <silent> <C-c> :cclose<CR>

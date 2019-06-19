@@ -1,0 +1,69 @@
+{
+    "go.inferGopath": true,
+    "workbench.colorTheme": "Monokai Pro (Filter Machine)",
+    "editor.minimap.enabled": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "<SPACE>",
+                "<SPACE>"
+            ],
+            "after": [
+                "<C-S>"
+            ]
+        }
+    ],
+    "vim.useSystemClipboard": true,
+    "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
+    "explorer.confirmDelete": false,
+    "explorer.sortOrder": "type",
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "extensions.ignoreRecommendations": true,
+    "window.zoomLevel": 0,
+    "files.associations": {
+        "riemann.config": "clojure",
+        "*.rules": "yaml"
+    },
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "jsonnet.libPaths": [],
+    "workbench.startupEditor": "newUntitledFile",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.sideBar.location": "left",
+    "editor.rulers": [
+        80
+    ],
+    "workbench.activityBar.visible": true,
+    "workbench.fontAliasing": "antialiased",
+    "breadcrumbs.enabled": true,
+    "search.location": "panel",
+    "telemetry.enableTelemetry": false,
+    "files.autoSave": "onWindowChange",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontWeight": "100",
+    "terminal.integrated.fontWeightBold": "500",
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.statusBar.feedback.visible": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.cursorStyle": "line-thin",
+    "go.formatTool": "goimports",
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "editor.detectIndentation": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
+    "editor.minimap.renderCharacters": false,
+    "editor.minimap.maxColumn": 200,
+    "editor.minimap.showSlider": "always",
+    "editor.renderWhitespace": "all",
+    "editor.smoothScrolling": true,
+    "editor.cursorBlinking": "phase",
+    "editor.cursorSmoothCaretAnimation": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+}
