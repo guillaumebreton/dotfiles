@@ -1,4 +1,4 @@
-ca() {
+vsa () {
     if [ -z "$1" ]
     then
         code -a .
@@ -6,3 +6,12 @@ ca() {
         code -a $@
     fi
 }
+
+vs (){
+   if [ -z "$1" ]
+    then
+        code .
+    else
+        code $@
+    fi
+ }

@@ -24,13 +24,6 @@ setopt hist_save_no_dups
 setopt hist_verify
 setopt auto_pushd
 
-# Bind end of line, start of line
-bindkey "^[a" beginning-of-line
-bindkey "^[e" end-of-line
-bindkey '^[[1;9C' forward-word
-bindkey '^[[1;9D' backward-word
-bindkey -e
-
 #set path
 export PATH="$HOME/bin:$PATH"
 export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/share/npm/bin::$PATH
@@ -43,8 +36,6 @@ fi
 
 export PATH="$HOME/bin:$HOME/Tools/homebrew/bin:$PATH"
 
-#rehash every time
-zstyle ":completion:*:commands" rehash 1
 #load extra (github etc)
 if [ -f ~/.extras ]; then
   source ~/.extras
@@ -55,8 +46,6 @@ do
   source $file
 done
 eval "$(direnv hook zsh)"
-
-# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
@@ -77,5 +66,3 @@ fzf-history-widget() {
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
-export FZF_DEFAULT_COMMAND='rg --no-messages --files --hidden --follow --glob "!.git/*"'
-export BRING_YOUR_OWN_GPG_AGENT="test"

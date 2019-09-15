@@ -1,18 +1,7 @@
 {
     "go.inferGopath": true,
     "workbench.colorTheme": "Monokai Pro (Filter Machine)",
-    "editor.minimap.enabled": true,
-    "vim.insertModeKeyBindings": [
-        {
-            "before": [
-                "<SPACE>",
-                "<SPACE>"
-            ],
-            "after": [
-                "<C-S>"
-            ]
-        }
-    ],
+    "editor.minimap.enabled": false,
     "vim.useSystemClipboard": true,
     "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
     "explorer.confirmDelete": false,
@@ -25,7 +14,7 @@
         "riemann.config": "clojure",
         "*.rules": "yaml"
     },
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "Fira code",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
     "jsonnet.libPaths": [],
@@ -66,4 +55,18 @@
     "editor.cursorSmoothCaretAnimation": true,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
+    "workbench.tree.indent": 20,
+    "[puppet]": {
+        "editor.tabSize": 2
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "elixirLS.suggestSpecs": false,
+    "[elixir]": {
+        "editor.acceptSuggestionOnEnter": "on"
+    },
+
 }
