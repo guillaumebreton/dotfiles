@@ -15,7 +15,7 @@
 [branch]
 	autosetuprebase = always
 [pull]
-	rebase = true
+	; rebase = true
 [user]
   signingkey = 0E9644C814E8EF511911095513F7B0EAE0D56E14
 [rebase]

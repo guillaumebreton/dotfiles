@@ -6,8 +6,8 @@ set -g default-terminal "xterm-256color"
 
 
 #mouse option
-bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-bind-key -T copy-mode MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy" 
+# bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+# bind-key -T copy-mode MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 ###########################
 #  Configuration
 ###########################
@@ -107,18 +107,16 @@ set-option -g status-right '%m/%d/%y %I:%M\
 ###########################
 
 # color status bar
-set -g status-bg black
-set -g status-fg white
+set -g status-style bg=black,fg=white
+set -g status-left-style bg=black,fg=white
 
 # highlight current window
-set-window-option -g window-status-current-fg black
-set-window-option -g window-status-current-bg green
+set -g window-status-style bg=black,fg=white
+set -g window-status-current-style bg=black,fg=green
 
 # set color of active pane
-set -g pane-border-fg colour235
-set -g pane-border-bg black
-set -g pane-active-border-fg green
-set -g pane-active-border-bg black
+set -g pane-active-border-style bg=black,fg=green
+set -g pane-border-style bg=black,fg=black
 
 set-option -g allow-rename off
 

@@ -66,3 +66,4 @@ fzf-history-widget() {
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
+# eval "$(starship init zsh)"
