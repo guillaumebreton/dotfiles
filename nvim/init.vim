@@ -4,74 +4,6 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=/Users/guillaume/.dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/Users/guillaume/.dein')
-  call dein#begin('/Users/guillaume/.dein')
-
-  " Let dein manage dein
-  " Required:
-    call dein#add('/Users/guillaume/.dein/repos/github.com/Shougo/dein.vim')
-
-
-    " General
-    call dein#add('tpope/vim-commentary')
-    call dein#add('tpope/vim-surround')
-
-
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('Shougo/neosnippet.vim')
-    call dein#add('zchee/deoplete-go', {'build': 'make'})
-
-    " Auto pair quote brakets etc
-    call dein#add('cohama/lexima.vim')
-    call dein#add('mattn/emmet-vim')
-
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('plasticboy/vim-markdown')
-    call dein#add('derekwyatt/vim-scala')
-    call dein#add('elixir-lang/vim-elixir')
-    call dein#add('markcornick/vim-terraform')
-    call dein#add('cespare/vim-toml')
-    call dein#add('fatih/vim-go', { 'do': ':GoInstallBinaries' })
-    call dein#add('elubow/cql-vim')
-    call dein#add('posva/vim-vue')
-    call dein#add('tpope/vim-surround')
-    call dein#add('junegunn/vim-easy-align')
-    " call dein#add('editorconfig/editorconfig-vim')
-    call dein#add('ekalinin/Dockerfile.vim')
-    call dein#add('dag/vim-fish')
-
-    " Fuzzy finder
-    call dein#add('/usr/local/opt/fzf') | call dein#add('junegunn/fzf.vim')
-
-    " Colorshemes
-    call dein#add('crusoexia/vim-monokai')
-
-    " Misc
-    call dein#add('justinmk/vim-dirvish')
-    call dein#add('neomake/neomake')
-    call dein#add('sbdchd/neoformat')
-
-    call dein#add('Shougo/vinarise.vim')
-    call dein#add('ajmwagar/vim-dues')
-
-
-    call dein#add('brooth/far.vim')
-    call dein#add('sheerun/vim-polyglot')
-    call dein#add('vim-scripts/Ferret')
-
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-if dein#check_install()
-          call dein#install()
-endif
-
 filetype plugin indent on
 syntax enable
 
@@ -79,7 +11,7 @@ syntax enable
 "-----------------------------------------------------------------------------
 "  II. Setttings
 "-----------------------------------------------------------------------------
-colorscheme monokai
+" colorscheme monokai
 " colorscheme dues
 set t_Co=256
 set laststatus=2
@@ -340,18 +272,3 @@ nmap <silent> <C-n> :cn<CR>
 nmap <silent> <C-p> :cp<CR>
 nmap <silent> <C-c> :cclose<CR>
 
-
-
-" Load all plugins
-call s:source_file('config/plugins/buftabline.vim')
-call s:source_file('config/plugins/deoplete.vim')
-call s:source_file('config/plugins/easyalign.vim')
-call s:source_file('config/plugins/emmet.vim')
-call s:source_file('config/plugins/lexima.vim')
-call s:source_file('config/plugins/neoformat.vim')
-call s:source_file('config/plugins/neosnippet.vim')
-call s:source_file('config/plugins/rg.vim')
-call s:source_file('config/plugins/vimgo.vim')
-call s:source_file('config/plugins/fzf.vim')
-call s:source_file('config/plugins/neomake.vim')
-call s:source_file('config/plugins/ferret.vim')

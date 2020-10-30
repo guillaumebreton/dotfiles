@@ -18,10 +18,12 @@
 	; rebase = true
 [user]
   signingkey = 0E9644C814E8EF511911095513F7B0EAE0D56E14
+	name = Guillaume Breton
+	email = breton.gy@gmail.com
 [rebase]
 	autosquash = true
 [commit]
-	gpgsign = true
+	gpgsign = false
 [credential]
 	helper = osxkeychain
 [gpg]

@@ -1,6 +1,3 @@
-#go path
-export GOPATH="$WORKSPACE/go"
-
 alias got="go test ./..."
 alias goi="go install ."
 alias gor="go run ."
