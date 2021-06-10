@@ -42,7 +42,7 @@ if [ -f ~/.extras ]; then
 fi
 for file in $(ls ~/.sources)
 do
-  source $file
+  source "~/.sources/$file"
 done
 
 eval "$(direnv hook zsh)"
