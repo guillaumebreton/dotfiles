@@ -40,7 +40,7 @@ export PATH="$HOME/bin:$HOME/Tools/homebrew/bin:$PATH"
 if [ -f ~/.extras ]; then
   source ~/.extras
 fi
-for file in $(cat ~/.sources)
+for file in $(ls ~/.sources)
 do
   source $file
 done
